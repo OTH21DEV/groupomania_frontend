@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* background: #f1f2f8; */
+  /* background:  #dfe2fe; */
+  background: #ffd7d7;
+  background: #d5f9e6;
+  font-family: "Lato", sans-serif;
+}
+
+.PageLayout {
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #f1f2f8;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+  padding: 20px 10px;
+}

@@ -1,0 +1,7 @@
+.FormLayout {
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 25px;
+  display: flex;
+  margin: 100px;
+}
