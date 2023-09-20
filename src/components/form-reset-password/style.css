@@ -1,0 +1,26 @@
+.Form-reset {
+
+  display: flex;
+  flex-direction: column;
+  width:490px
+}
+
+.Form-reset h2 {
+  text-align: center;
+  color:#1fab89;
+  font-family:"Lato", sans-serif;
+  font-weight:300;
+  font-size:2.6em;
+}
+
+.Form-reset label {
+  color: #a8a8a8;
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #212121;
+  font-size: 0.8em;
+  font-family: "Lato", sans-serif;
+}
+.Form-reset button {
+  align-self: center;
+}

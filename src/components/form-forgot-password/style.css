@@ -1,7 +1,7 @@
 button {
   background: #fd2d01;
   background: #1fab89;
-  width: 150px;
+  min-width: 150px;
   height: 30px;
   color: white;
   border-radius: 5px;
@@ -13,12 +13,24 @@ button {
 
 .Form-forgot-content {
   text-align: center;
-  margin-top: -60px;
+
 }
 
+.Form-forgot {
+width:490px
+
+}
+.Form-forgot-content h2{
+  color:#1fab89;
+  font-family:"Lato", sans-serif;
+  font-weight:300;
+  font-size:2.6em;
+
+}
 .Form-forgot-content p {
-  color: #a8a8a8;
+  color: #212121;
   font-size: 0.8em;
+  font-family: "Lato", sans-serif;
 }
 
 .Form-forgot-input {
@@ -32,5 +44,5 @@ input {
   background: transparent;
   outline: none;
   border: 0px;
-  border-bottom: 0.4px solid #1fab89;
+  border-bottom: 1px solid #212121;
 }
