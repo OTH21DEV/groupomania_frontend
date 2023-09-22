@@ -9,6 +9,7 @@ const FormForgotPassword = () => {
   const [user, setUser] = useState({
     email: "",
   });
+  const [showForm, setShowForm] = useState(true);
 
   const [errorMessage, setErrorMessage] = useState({});
 
@@ -34,22 +35,32 @@ const FormForgotPassword = () => {
     submitForm();
   }
 
+  function handleClick(){
+    if(errorMessage.message){
+      setShowForm(false);
+
+    }
+
+  }
+  console.log(errorMessage)
+
   return (
-    <form className={cn()}
-      method="post"
-      onSubmit={(e) => {
-        handleSubmit(e);
-      }}
-    >
-      <div className={cn("content")}>
-        <h2>Forgot password</h2>
-        <p>Enter your email address below and we will send you a link to create a new password </p>
-      </div>
-      <div className={cn("input")}>
-        <input type="email" value={user?.email ? user.email : ""} onChange={(e) => setUser({ ...user, email: e.target.value })}></input>
-        <button>Send email</button>
-      </div>
-    </form>
+{showForm &&   <>  <form className={cn()}
+method="post"
+onSubmit={(e) => {
+  handleSubmit(e);
+}}
+>
+<div className={cn("content")}>
+  <h2>Forgot password</h2>
+  <p>Enter your email address below and we will send you a link to create a new password </p>
+</div>
+<div className={cn("input")}>
+  <input type="email" value={ user.email } onChange={(e) => setUser({ ...user, email: e.target.value })}></input>
+   {errorMessage?.error ?<p className={cn("error-msg")}>{errorMessage.error}</p> : ""}
+  <button>Send email</button>
+</div>
+</form></>}
   );
 };
 
