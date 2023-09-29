@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { authData } from "../../services/auth-services";
 import { cn as bem } from "@bem-react/classname";
+import Popup from "../popup";
+
 import "./style.css";
 
 const FormForgotPassword = () => {
@@ -9,12 +11,13 @@ const FormForgotPassword = () => {
   const [user, setUser] = useState({
     email: "",
   });
-  const [showForm, setShowForm] = useState(true);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState({});
 
   const location = useLocation();
-  console.log(location.pathname);
+
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,42 +29,44 @@ const FormForgotPassword = () => {
       try {
         const result = await authData(apiEndpoint, formdata);
         setErrorMessage(result.message);
-        console.log(result);
+
+        if (result.message.error === undefined && user.email !== "") {
+          setShowSuccessMessage(true);
+        }
       } catch (error) {
         // Handle error case
-        console.log(error.message);
+        console.log(error);
       }
     }
     submitForm();
   }
 
-  function handleClick(){
-    if(errorMessage.message){
-      setShowForm(false);
-
-    }
-
-  }
-  console.log(errorMessage)
 
   return (
-{showForm &&   <>  <form className={cn()}
-method="post"
-onSubmit={(e) => {
-  handleSubmit(e);
-}}
->
-<div className={cn("content")}>
-  <h2>Forgot password</h2>
-  <p>Enter your email address below and we will send you a link to create a new password </p>
-</div>
-<div className={cn("input")}>
-  <input type="email" value={ user.email } onChange={(e) => setUser({ ...user, email: e.target.value })}></input>
-   {errorMessage?.error ?<p className={cn("error-msg")}>{errorMessage.error}</p> : ""}
-  <button>Send email</button>
-</div>
-</form></>}
+    <div lassName={cn("wrapper")}>
+      {!showSuccessMessage ? (
+        <form
+          className={cn()}
+          method="post"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          <div className={cn("content")}>
+            <h2>Forgot password</h2>
+            <p>Enter your email address below and we will send you a link to create a new password </p>
+          </div>
+          <div className={cn("input")}>
+            <input type="email" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })}></input>
+            {errorMessage?.error ? <p className={cn("error-msg")}>{errorMessage.error}</p> : ""}
+            <button type="submit">Send email</button>
+          </div>
+        </form>
+      ) : (
+
+        <Popup text={"Password reset email sent successfully to your email"} link={"/login"}/>
+      )}
+    </div>
   );
 };
-
 export default FormForgotPassword;

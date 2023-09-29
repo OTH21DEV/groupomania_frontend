@@ -7,7 +7,8 @@ import { authData } from "../../services/auth-services";
 import { useSpring, animated, config } from "react-spring";
 // import shop from "../../assets/shop.jpg";
 import image from "../../assets/shop_test.jpg";
-
+import Popup from "../popup";
+import FormLayout from "../../components/form-layout";
 const Form = () => {
   const [user, setUser] = useState({
     email: "",
@@ -24,9 +25,11 @@ const Form = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
 
   function handleSubmit(e) {
     //////////////:
@@ -51,19 +54,28 @@ const Form = () => {
     }
 
     const apiEndpoint = location.pathname === "/login" ? "/login" : "/signup";
-
+  
     //API call
     async function submitForm() {
       try {
         const result = await authData(apiEndpoint, formdata);
-        setErrorMessage(result.message);
+        // if(result.message==="User already exists"|| undefined){
+        //   setErrorMessage(`${result.message}`);
+        // }
+       setErrorMessage(result.message);
+   
         console.log(result);
+    
+        if (user.email !== "" && user.password !== "" && user.pseudo !== ""&& result.message==="User created") {
+          setShowSuccessMessage(true);
+          console.log(result);
+        }
       } catch (error) {
         // Handle error case
         console.log(error.message);
       }
     }
-    submitForm();
+  submitForm();
 
     //   function validateEmail() {
     //     var email = user.email;
@@ -76,23 +88,18 @@ const Form = () => {
     // }
 
     // validateEmail()
+    setSubmitted(true);
   }
 
   function handleSignUp() {
     setSignUp(!signUp);
-
-    // // Reset the errorMessage state object
-
+    setUser({ email: "", password: "", pseudo: "" });
     // Reset the file state object
     setFileName("");
 
-    //
-    // setSubmitted(false)
-    // setErrorMessage({});
-
     if (!signUp) {
       navigate("/signup");
-      setUser({ email: "", password: "", pseudo: "" });
+      // setUser({ email: "", password: "", pseudo: "" });
     } else {
       navigate("/login");
       // setUser({ email: "", password: "", pseudo: "" });
@@ -182,7 +189,8 @@ const Form = () => {
   const handleButtonClick = () => {
     setButtonClicked(true);
   };
-
+  console.log(errorMessage);
+  console.log(user)
   return (
     <>
       <div id="back">
@@ -191,97 +199,110 @@ const Form = () => {
           <img src={image} alt=""></img>
         </div>
       </div>
-      <animated.div id="slideBox" style={slideBoxProps}>
-        <animated.div className="topLayer" style={topLayerProps}>
-          <div className={signUp ? "left" : "right"}>
-            <div className="content">
-              <h2>{!signUp ? "Login" : "Signup"}</h2>
-              <form
-                id="form-login"
-                method="post"
-                onSubmit={(e) => {
-                  handleSubmit(e);
-                }}
-              >
-                <div className="form-element form-stack">
-                  <label htmlFor="username-login" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    id={!signUp ? "username-login" : "username-signup"}
-                    type="text"
-                    name="username"
-                    value={user?.email ? user.email : ""}
-                    onChange={(e) => setUser({ ...user, email: e.target.value })}
-                  />
-                  {errorMessage.email && buttonClicked ? <p className={cn("error-msg")}>{errorMessage.email}</p> : ""}
-                </div>
-                <div className="form-element form-stack">
-                  <label htmlFor="password-login" className="form-label">
-                    Password
-                  </label>
-                  <input id="password-login" type="password" name="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
-                  {errorMessage.password && buttonClicked && <p className={cn("error-msg")}>{errorMessage.password}</p>}
-                </div>
-                {/**Add error message on login page */}
-                {!signUp && errorMessage && buttonClicked && <p className={cn("error-msg")}>{errorMessage.error}</p>}
+      {/* {!showSuccessMessage ? ( */}
+        <animated.div id="slideBox" style={slideBoxProps}>
+          <animated.div className="topLayer" style={topLayerProps}>
+            <div className={signUp ? "left" : "right"}>
+              <div className="content">
+                <h2>{!signUp ? "Login" : "Signup"}</h2>
+                <form
+                  id="form-login"
+                  method="post"
+                  onSubmit={(e) => {
+                    handleSubmit(e);
+                  }}
+                >
+                  <div className="form-element form-stack">
+                    <label htmlFor="username-login" className="form-label">
+                      Email
+                    </label>
+                    <input
+                      id={!signUp ? "username-login" : "username-signup"}
+                      type="text"
+                      name="username"
+                      value={user?.email || ""}
+                      onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    />
+                    {errorMessage.email && buttonClicked ? <p className={!signUp? cn("error-msg"):cn("error-msg-signup")}>{errorMessage.email}</p> : ""}
+                  </div>
+                  <div className="form-element form-stack">
+                    <label htmlFor="password-login" className="form-label">
+                      Password
+                    </label>
+                    <input id="password-login" type="password" name="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                    {errorMessage.password && buttonClicked && <p className={!signUp? cn("error-msg"):cn("error-msg-signup")}>{errorMessage.password}</p>}
+                  </div>
+                  {/**Add error message on login page */}
+                  {!signUp && errorMessage && buttonClicked && <p className={cn("error-msg")}>{errorMessage.error}</p>}
 
-                {/**Add forgot password on login page */}
-                {!signUp && <a href="/forgot-password">Forgot a password?</a>}
+                  {/**Add forgot password on login page */}
+                  {!signUp && (
+                    <a className={cn("forgot-link")} href="/forgot-password">
+                      Forgot a password?
+                    </a>
+                  )}
 
-                {signUp && (
-                  <>
-                    <div className="form-element form-stack">
-                      <label htmlFor="username-signup" className="form-label">
-                        Pseudo
-                      </label>
-                      <input id="username-signup" type="text" name="pseudo" value={user.pseudo} onChange={(e) => setUser({ ...user, pseudo: e.target.value })} />
-                      {errorMessage.pseudo && buttonClicked && <p className={cn("error-msg")}>{errorMessage.pseudo}</p>}
-                    </div>
-
-                    <div className="form-element form-stack">
-                      <label htmlFor="image-signup" className="form-label">
-                        Image
-                      </label>
-                      <input id="image-signup" name="image" />
-                    </div>
-                  </>
-                )}
-
-                <div className="form-element form-submit">
-                  {pathname !== "/login" ? (
+                  {signUp && (
                     <>
-                      <button id="signUp" className="signup" type="submit" name="signup" onClick={handleButtonClick}>
-                        Sign up
-                      </button>
-                      <button id="goLeft" className={` ${pathname !== "/login" && "signup off"}`} onClick={handleSignUp}>
-                        Log In
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button id="logIn" className="login" type="submit" name="login" onClick={handleButtonClick}>
-                        Log In
-                      </button>
-                      <button
-                        id="goRight"
-                        className={` ${pathname === "/login" && "login off"}`}
-                        name="signup"
-                        onClick={() => {
-                          // setErrorMessage({});
-                          handleSignUp();
-                        }}
-                      >
-                        Sign Up
-                      </button>
+                      <div className="form-element form-stack">
+                        <label htmlFor="username-signup" className="form-label">
+                          Pseudo
+                        </label>
+                        <input id="username-signup" type="text" name="pseudo" value={user.pseudo} onChange={(e) => setUser({ ...user, pseudo: e.target.value })} />
+                        {errorMessage.pseudo && buttonClicked && <p className={cn("error-msg-signup")}>{errorMessage.pseudo}</p>}
+                      </div>
+
+                      <div className="form-element form-stack">
+                        <label htmlFor="image-signup" className="form-label">
+                          Image
+                        </label>
+                        <input id="image-signup" name="image" />
+                      </div>
+                      {/**Add error message on signup page */}
+
+                      {errorMessage==="User already exists"&& <p className={cn("error-msg-signup")}>{JSON.stringify(errorMessage).replace(/"/g, '')}</p>}
                     </>
                   )}
-                </div>
-              </form>
+
+                  <div className="form-element form-submit">
+                    {pathname !== "/login" ? (
+                      <>
+                        <button id="signUp" className="signup" type="submit" name="signup" onClick={handleButtonClick}>
+                          Sign up
+                        </button>
+                        <button id="goLeft" className={` ${pathname !== "/login" && "signup off"}`} onClick={handleSignUp}>
+                          Log In
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button id="logIn" className="login" type="submit" name="login" onClick={handleButtonClick}>
+                          Log In
+                        </button>
+                        <button
+                          id="goRight"
+                          className={` ${pathname === "/login" && "login off"}`}
+                          name="signup"
+                          onClick={() => {
+                            // setErrorMessage({});
+                            handleSignUp();
+                          }}
+                        >
+                          Sign Up
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
+          </animated.div>
         </animated.div>
-      </animated.div>
+      {/* ) : ( */}
+     
+      {showSuccessMessage  &&<Popup text={"User created"} link={"/login"}></Popup>}    
+    
+      {/* )} */}
     </>
   );
 };
