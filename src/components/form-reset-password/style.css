@@ -24,3 +24,10 @@
 .Form-reset button {
   align-self: center;
 }
+.Form-reset-error-msg {
+  margin-top: 5px;
+  font-size: 0.7em;
+  color: #234761;
+  font-weight: 600;
+
+}

@@ -1,17 +1,18 @@
 import React,{memo} from "react";
-import PageLayout from "../../components/page-layout";
+import PageLayoutLight from "../../components/page-layout-light";
 import Header from "../../components/header";
 import Post from "../../components/post";
 
 const Posts = () => {
   return (
-    <PageLayout>
+    <PageLayoutLight>
+
     <Header></Header>
        <Post></Post>
-     
     
-    </PageLayout>
+    
+  </PageLayoutLight>
   );
 };
 
-export default memo(Posts);
+export default Posts;

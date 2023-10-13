@@ -1,10 +1,15 @@
-#root {
+/* #root {
+  display: flex;
+  justify-content: center;
+  min-height:100vh;
+  align-items: center;
+} */
+.Form-wrapper{
   display: flex;
   justify-content: center;
   min-height:100vh;
   align-items: center;
 }
-
 .Form {
   width: 65%;
   min-height: 55vh;
@@ -13,6 +18,9 @@
   padding: 25px;
   display: flex;
   margin: 100px;
+
+
+
 }
 .Form-title {
   text-align: center;

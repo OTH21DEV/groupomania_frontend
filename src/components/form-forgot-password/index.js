@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { authData } from "../../services/auth-services";
 import { cn as bem } from "@bem-react/classname";
 import Popup from "../popup";
-
 import "./style.css";
 
 const FormForgotPassword = () => {
@@ -16,8 +15,6 @@ const FormForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState({});
 
   const location = useLocation();
-
-
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,16 +31,15 @@ const FormForgotPassword = () => {
           setShowSuccessMessage(true);
         }
       } catch (error) {
-        // Handle error case
+      
         console.log(error);
       }
     }
     submitForm();
   }
 
-
   return (
-    <div lassName={cn("wrapper")}>
+    <div className={cn("wrapper")}>
       {!showSuccessMessage ? (
         <form
           className={cn()}
@@ -63,8 +59,7 @@ const FormForgotPassword = () => {
           </div>
         </form>
       ) : (
-
-        <Popup text={"Password reset email sent successfully to your email"} link={"/login"}/>
+        <Popup text={"Password reset email sent successfully to your email"} link={"/login"} />
       )}
     </div>
   );

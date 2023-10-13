@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 import Login from "./login/index";
 import ForgotPassword from "./forgot-password";
@@ -10,11 +10,12 @@ const App = () => {
     <>
       <Router>
         <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-          {/* <Route path="/" element={<Posts />} /> */}
+          <Route path="/" element={<Navigate replace to="/login" />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/post" element={<Posts />} />
         </Routes>
       </Router>
     </>

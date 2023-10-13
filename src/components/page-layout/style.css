@@ -1,19 +1,13 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
-  /* background: #f1f2f8; */
-  /* background:  #dfe2fe; */
-  /* background: #ffd7d7;
-  background: #d5f9e6; */
   font-family: "Lato", sans-serif;
   background-image: url("../../assets/shop_test.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgba(239, 229, 229, 0.5);
 
-}
-
-
+} */
 
 .PageLayout {
   max-width: 1024px;
@@ -24,4 +18,13 @@ body {
   box-shadow: 0 0 15px 5px #0000003b;
   padding: 20px 10px;
 
+  /*test*/
+
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  background-image: url("../../assets/shop_test.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(239, 229, 229, 0.5);
 }
