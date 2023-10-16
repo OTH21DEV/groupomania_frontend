@@ -29,6 +29,12 @@ const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  function handleFileChange(e) {
+    console.log(e.target)
+    const selectedFile = e.target.files[0];
+    setFileName(selectedFile.name);
+  }
+
   function handleSubmit(e) {
     //////////////:
 
@@ -69,6 +75,7 @@ const Form = () => {
 
         if (apiEndpoint === "/login" && result.userId && result.token) {
           navigate("/post");
+          localStorage.setItem("userData", JSON.stringify(result));
         }
       } catch (error) {
         // Handle error case
@@ -92,6 +99,8 @@ const Form = () => {
 
     // validateEmail()
     setSubmitted(true);
+
+    // handleFileChange(e)
   }
 
   function handleSignUp() {
@@ -109,10 +118,7 @@ const Form = () => {
     }
   }
 
-  // function handleFileChange(e) {
-  //   const selectedFile = e.target.files[0];
-  //   setFileName(selectedFile.name);
-  // }
+
 
   useEffect(() => {
     setUser({ email: "", password: "", pseudo: "" });
@@ -251,12 +257,16 @@ const Form = () => {
                       {errorMessage.pseudo && buttonClicked && <p className={cn("error-msg-signup")}>{errorMessage.pseudo}</p>}
                     </div>
 
+       
+
                     <div className="form-element form-stack">
                       <label htmlFor="image-signup" className="form-label">
                         Image
+                        <input id="image-signup" name="image" type="file" />
                       </label>
-                      <input id="image-signup" name="image" />
                     </div>
+
+
                     {/**Add error message on signup page */}
 
                     {errorMessage === "User already exists" && <p className={cn("error-msg-signup")}>{JSON.stringify(errorMessage).replace(/"/g, "")}</p>}
