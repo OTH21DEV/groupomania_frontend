@@ -3,4 +3,6 @@
   background-color: #eff1f6;
   overflow: auto;
 display:flex;
+width:100%;
+flex-wrap: wrap;
 }
