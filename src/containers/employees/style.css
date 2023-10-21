@@ -1,0 +1,10 @@
+.Employees{
+    display: flex;
+width: 45%;
+/* flex-wrap: wrap; */
+height: 220px;
+padding:10px 10px 20px 15px;
+background:white;
+border-radius: 5px;
+justify-content: space-between;
+}

@@ -4,6 +4,7 @@ import Header from "../../components/header";
 import Post from "../../components/post";
 import Nav from "../../components/nav";
 import Links from "../../containers/links";
+import Employees from "../../containers/employees";
 
 const Posts = () => {
   let userData = JSON.parse(localStorage.getItem("userData"));
@@ -14,6 +15,7 @@ const Posts = () => {
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
         {/* <Post></Post> */}
         <Links />
+        <Employees/>
       </PageLayoutLight>
     </div>
   );

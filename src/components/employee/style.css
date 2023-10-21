@@ -1,0 +1,22 @@
+.Employee img {
+  width: 90px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.Employee-info h2 {
+  white-space: pre-line;
+}
+.Employee {
+  display: flex;
+}
+
+.Employee-contact img {
+  width: 20px;
+  height: 20px;
+}
+
+.Employee-contact {
+  display: flex;
+  align-items: center;
+}

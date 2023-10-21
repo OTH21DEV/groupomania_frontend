@@ -9,6 +9,7 @@ import draft from "../../assets/draft.png";
 import print from "../../assets/print.png";
 import meeting from "../../assets/meeting.png";
 import help from "../../assets/help.png";
+import Heading from "../../components/heading";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
@@ -16,6 +17,7 @@ const Links = () => {
   const cn = bem("Links");
   return (
     <div className={cn()}>
+      <Heading title ={"Quick links"}/>
       <Link name={"Find employee"} icon={employee} style={"#FC72A5 "} />
       <Link name={"Submit proposition "} style={"#7AC583"} icon={idea} />
       <Link name={"Contact IT department "} style={"#A88C94"} icon={laptop} />
