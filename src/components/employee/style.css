@@ -1,14 +1,27 @@
 .Employee img {
-  width: 90px;
-  height: 150px;
+  width: 120px;
+  /* height: 150px; */
   object-fit: cover;
 }
 
 .Employee-info h2 {
   white-space: pre-line;
+  font-size: 1.1em;
+}
+.Employee-info p {
+  color: #212121;
+  margin-top: 0;
 }
 .Employee {
   display: flex;
+  /* margin-top:20px;
+margin-bottom:20px; */
+  /* height: 100%; */
+  margin-right:20px
+}
+
+.Employee-info {
+  margin-left: 20px;
 }
 
 .Employee-contact img {
@@ -18,5 +31,21 @@
 
 .Employee-contact {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+}
+
+.Employee-contact p {
+  margin-left: 10px;
+  align-self: end;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.Employee-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Employee-info h2 {
+  margin: 0;
 }
