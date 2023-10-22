@@ -3,9 +3,87 @@
     /* flex-direction:column; */
 width: 45%;
 flex-wrap: wrap;
-height: 220px;
+/* height: 220px; */
 padding:10px 10px 20px 15px;
 background:white;
 border-radius: 5px;
-/* justify-content: space-between; */
+justify-content: space-between;
+
+min-height: 220px;
+
+display: flex;
+
+
 }
+
+.Employees-test{
+    display:flex;
+    overflow-x: auto;
+
+
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+
+.arrow {
+    width: 30px;
+    height: 20px;
+    /* background-color: lightgray; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size:1.7em
+  }
+  
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+  .Employees-arrow{
+   width:100%;
+   display:flex;
+   justify-content: center;
+}
+
+/* @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  .fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+  } */
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Apply Animation Styles */
+  .fadeIn {
+    animation: fadeIn 3s ease-in-out; /* Adjust duration and timing function as needed */
+  }
+  
+  .show {
+    opacity: 1;
+  }

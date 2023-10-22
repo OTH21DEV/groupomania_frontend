@@ -1,8 +1,13 @@
 import React from 'react'
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
+
 
 const Posts = () => {
+
+  const cn = bem("Post");
   return (
-    <div>Test</div>
+    <div className={cn()}>Test</div>
   )
 }
 

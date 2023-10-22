@@ -13,7 +13,7 @@ const Posts = () => {
       <Nav />
       <PageLayoutLight>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
-        {/* <Post></Post> */}
+        <Post></Post>
         <Links />
         <Employees/>
       </PageLayoutLight>
