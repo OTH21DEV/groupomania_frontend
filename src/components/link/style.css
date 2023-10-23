@@ -8,7 +8,8 @@
 padding-right:10px;
     width:29%;
     height:50px;
-    cursor:pointer
+    cursor:pointer;
+    text-decoration: none;
 }
 
 .Link:hover{

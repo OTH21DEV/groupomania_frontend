@@ -46,50 +46,50 @@ const Employees = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    const leftArrow = leftArrowRef.current;
-    const rightArrow = rightArrowRef.current;
-    const employees = Array.from(scrollContainer.children);
+//   useEffect(() => {
+//     const scrollContainer = scrollContainerRef.current;
+//     const leftArrow = leftArrowRef.current;
+//     const rightArrow = rightArrowRef.current;
+//     const employees = Array.from(scrollContainer.children);
 
-    const handleLeftArrowClick = () => {
-      const visibleEmployees = employees.filter((employee) => employee.classList.contains("show"));
-console.log(visibleEmployees)
-      if (visibleEmployees.length > 0) {
-        const firstVisibleEmployeeIndex = employees.indexOf(visibleEmployees[0]);
-        const previousEmployeeIndex = (firstVisibleEmployeeIndex - 1 + employees.length) % employees.length;
+//     const handleLeftArrowClick = () => {
+//       const visibleEmployees = employees.filter((employee) => employee.classList.contains("show"));
+// console.log(visibleEmployees)
+//       if (visibleEmployees.length > 0) {
+//         const firstVisibleEmployeeIndex = employees.indexOf(visibleEmployees[0]);
+//         const previousEmployeeIndex = (firstVisibleEmployeeIndex - 1 + employees.length) % employees.length;
 
-        visibleEmployees.forEach((employee) => {
-          employee.classList.remove("show");
-        });
+//         visibleEmployees.forEach((employee) => {
+//           employee.classList.remove("show");
+//         });
 
-        employees[previousEmployeeIndex].classList.add("show");
-      }
-    };
+//         employees[previousEmployeeIndex].classList.add("show");
+//       }
+//     };
 
-    const handleRightArrowClick = () => {
-      const visibleEmployees = employees.filter((employee) => employee.classList.contains("show"));
+//     const handleRightArrowClick = () => {
+//       const visibleEmployees = employees.filter((employee) => employee.classList.contains("show"));
 
-      if (visibleEmployees.length > 0) {
-        const lastVisibleEmployeeIndex = employees.indexOf(visibleEmployees[visibleEmployees.length - 1]);
-        const nextEmployeeIndex = (lastVisibleEmployeeIndex + 1) % employees.length;
+//       if (visibleEmployees.length > 0) {
+//         const lastVisibleEmployeeIndex = employees.indexOf(visibleEmployees[visibleEmployees.length - 1]);
+//         const nextEmployeeIndex = (lastVisibleEmployeeIndex + 1) % employees.length;
 
-        visibleEmployees.forEach((employee) => {
-          employee.classList.remove("show");
-        });
+//         visibleEmployees.forEach((employee) => {
+//           employee.classList.remove("show");
+//         });
 
-        employees[nextEmployeeIndex].classList.add("show");
-      }
-    };
+//         employees[nextEmployeeIndex].classList.add("show");
+//       }
+//     };
 
-    leftArrow.addEventListener("click", handleLeftArrowClick);
-    rightArrow.addEventListener("click", handleRightArrowClick);
+//     leftArrow.addEventListener("click", handleLeftArrowClick);
+//     rightArrow.addEventListener("click", handleRightArrowClick);
 
-    return () => {
-      leftArrow.removeEventListener("click", handleLeftArrowClick);
-      rightArrow.removeEventListener("click", handleRightArrowClick);
-    };
-  }, []);
+//     return () => {
+//       leftArrow.removeEventListener("click", handleLeftArrowClick);
+//       rightArrow.removeEventListener("click", handleRightArrowClick);
+//     };
+//   }, []);
 
   const cn = bem("Employees");
   return (
@@ -97,10 +97,10 @@ console.log(visibleEmployees)
       <div className={cn()}>
         <Heading title={"New employees"} />
         <div className={cn("test")} ref={scrollContainerRef}>
-          <Employee className="fadeIn" ref={employeeRef} photo={man} title={`Nico\nReis`} role="IT Engeener" icon={phone} phone={"3589"} />
-          <Employee className="fadeIn" ref={employeeRef} photo={woman} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
-          <Employee className="fadeIn" ref={employeeRef} photo={boy} title={`Adam\nColin`} role="Developer" icon={phone} phone={"3586"} />
-          <Employee className="fadeIn" ref={employeeRef} photo={girl} title={`Eva\nColins`} role="Accountant" icon={phone} phone={"3584"} />
+          <Employee photo={man} title={`Nico\nReis`} role="IT Engeener" icon={phone} phone={"3589"} />
+          <Employee photo={woman} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
+          <Employee photo={boy} title={`Adam\nColin`} role="Developer" icon={phone} phone={"3586"} />
+          <Employee photo={girl} title={`Eva\nColins`} role="Accountant" icon={phone} phone={"3584"} />
         </div>
 
         <div className={cn("arrow")}>
