@@ -16,18 +16,13 @@ import "./style.css";
 
 const Links = () => {
   const cn = bem("Links");
-  let navigate = useNavigate();
 
-  function handleClick(e){
-console.log(e)
-    navigate("/new-post")
-  }
-  
+
 
   return (
     <div className={cn()}>
-      <Heading title ={"Quick links"}/>
- <Link name={"Propose post"} style={"#E672FC"} icon={news} url={"/new-post"}/>
+      <Heading title={"Quick links"} />
+      <Link name={"Propose post"} style={"#E672FC"} icon={news} url={"/new-post"} />
       <Link name={"Find employee"} icon={employee} style={"#FC72A5 "} />
       <Link name={"Submit proposition "} style={"#7AC583"} icon={idea} />
       <Link name={"Contact IT department "} style={"#A88C94"} icon={laptop} />

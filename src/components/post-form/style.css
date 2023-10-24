@@ -1,6 +1,6 @@
 .Post-form{
     width:50%;
-    margin-top:50px
+    /* margin-top:50px */
 }
 textarea {
     margin: 30px 0 0 0;
@@ -35,7 +35,12 @@ textarea {
 
  
  
- 
+ .Post-form-error-msg{
+  margin-top: 5px;
+    font-size: 0.7em;
+    color: #234761;
+    font-weight: 600;
+ }
  
  .Post-form button{
      background-color:  #03a9f4;
