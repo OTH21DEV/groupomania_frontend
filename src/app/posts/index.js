@@ -11,11 +11,13 @@ const Posts = () => {
   return (
     <div style={{display:"flex"}}>
       <Nav />
-      <PageLayoutLight style={"end"}>
+      <PageLayoutLight style={"space-between"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
         <Post></Post>
+        <div style={{display:"flex", flexDirection:"column", width:"45%", marginRight:"20px"}}>
         <Links />
         <Employees/>
+        </div>
       </PageLayoutLight>
     </div>
   );

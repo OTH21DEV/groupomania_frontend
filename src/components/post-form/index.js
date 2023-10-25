@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cn as bem } from "@bem-react/classname";
-import { postData } from "../../services/post-services";
+import { createPost } from "../../services/post-services";
 import {  useLocation } from "react-router-dom";
 import "./style.css";
 import Popup from "../popup";
@@ -48,7 +48,7 @@ const PostForm = () => {
     //API call
     async function submitForm() {
       try {
-        const result = await postData(apiEndpoint, formdata, headers);
+        const result = await createPost(apiEndpoint, formdata, headers);
 
         setErrorMessage(result.message);
 
