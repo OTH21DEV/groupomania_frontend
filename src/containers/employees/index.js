@@ -8,6 +8,12 @@ import phone from "../../assets/phone.png";
 import man from "../../assets/man.png";
 import boy from "../../assets/boy.png";
 import girl from "../../assets/girl.png";
+import first from "../../assets/first.jpg"
+import second from "../../assets/second.jpg"
+import third from "../../assets/third.jpg"
+import test_3 from "../../assets/test_3.jpg"
+import test_4 from "../../assets/test_4.jpg"
+import test_2 from "../../assets/test_2.jpg"
 
 const Employees = () => {
   const scrollContainerRef = useRef(null);
@@ -97,10 +103,16 @@ const Employees = () => {
       <div className={cn()}>
         <Heading title={"New employees"} />
         <div className={cn("test")} ref={scrollContainerRef}>
-          <Employee photo={man} title={`Nico\nReis`} role="IT Engeener" icon={phone} phone={"3589"} />
-          <Employee photo={woman} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
-          <Employee photo={boy} title={`Adam\nColin`} role="Developer" icon={phone} phone={"3586"} />
-          <Employee photo={girl} title={`Eva\nColins`} role="Accountant" icon={phone} phone={"3584"} />
+        <Employee photo={test_3} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
+        <Employee photo={test_4} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
+        <Employee photo={test_2} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
+        {/* <Employee photo={first} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} />
+        <Employee photo={second} title={`Nico\nReis`} role="IT Engeener" icon={phone} phone={"3589"} />
+        <Employee photo={third} title={`Adam\nColin`} role="Developer" icon={phone} phone={"3586"} />
+          {/* <Employee photo={man} title={`Nico\nReis`} role="IT Engeener" icon={phone} phone={"3589"} /> */}
+          {/* <Employee photo={woman} title={`Melanie\nSantos`} role="Designer" icon={phone} phone={"3599"} /> */}
+          {/* <Employee photo={boy} title={`Adam\nColin`} role="Developer" icon={phone} phone={"3586"} /> */}
+          {/* <Employee photo={girl} title={`Eva\nColins`} role="Accountant" icon={phone} phone={"3584"} /> */} 
         </div>
 
         <div className={cn("arrow")}>

@@ -1,0 +1,104 @@
+.Post-link {
+  text-decoration: none;
+}
+.Post-link-pseudo {
+  margin-top: 20px;
+  color: #212121;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  /* padding-left: 25px; */
+}
+
+.Post-link-title {
+  font-size: 1em;
+  /* width: 100%; */
+  /*  
+      padding-left: 25px; */
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #212121;
+  /* height: 25px; */
+}
+
+.Post-link-body {
+  color: #212121;
+}
+.Post-img-container {
+  width: 100%;
+ 
+  /* height:60vh;
+  overflow-y: scroll; */
+
+}
+
+.Post-test{
+  width: 100%;
+  height:60vh;
+  overflow-y: scroll;
+}
+
+.Post-img{
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.Post-bottom {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #eff1f6;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.Post-bottom-notation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+}
+.Post-bottom-notation img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.Post-bottom-notation-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Post-bottom-date {
+  color: #615a57;
+  font-size: 0.9em;
+}
+.Post-bottom-notation-comments {
+  color: #615a57;
+}
+
+.Post-hide {
+  display: none;
+}
+
+.Post-bottom-notation-likes {
+  color: #e54541;
+}
+.Post {
+  width: 45%;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 10px 20px 15px;
+  margin: 20px 10px 30px 0px;
+  overflow: auto;
+  max-height: 100vh;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Post-wrapper {
+  width: 100%;
+}

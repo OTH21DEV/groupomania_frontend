@@ -74,7 +74,7 @@ const Form = () => {
         }
 
         if (apiEndpoint === "/login" && result.userId && result.token) {
-          navigate("/post");
+          navigate("/posts");
           localStorage.setItem("userData", JSON.stringify(result));
         }
       } catch (error) {

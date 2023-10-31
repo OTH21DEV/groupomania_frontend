@@ -1,0 +1,62 @@
+.Comment-input {
+  border: 2px solid #e1e1e1;
+  border-radius: 5px;
+}
+
+.Comment-input:active,
+.Comment-input:focus {
+  border-color: #03a9f4;
+}
+
+.Comment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Comment-avatar img {
+  width: 40px;
+  height: 40px;
+  padding-right: 10px;
+}
+
+.Comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 30px 0 30px 0;
+}
+
+.Comment-btn {
+  display: flex;
+  justify-content: end;
+}
+
+.Comment-cancel-btn {
+  margin-right: 0;
+  background: none;
+  color: #03a9f4;
+}
+
+.Comment-send-btn {
+  background: #03a9f4;
+}
+
+.Comment-send-btn:hover,
+.Comment-send-btn:active {
+  background: #0288d1;
+}
+.Comment-cancel-btn:hover,
+.Comment-cancel-btn:active {
+  background: #e3e3e3;
+}
+.Comment-cancel-btn,
+.Comment-send-btn {
+  margin-top: 30px;
+}
+
+.Comment-emoji-btn{
+    background: transparent;
+  outline: none;
+  border: none;
+}
