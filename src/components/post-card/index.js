@@ -6,7 +6,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index,url }) => {
+const PostCard = ({ post, index,url,click ,like,setLike}) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
 
@@ -32,8 +32,9 @@ const PostCard = ({ post, index,url }) => {
       <div className={cn("bottom")}>
         <p className={cn("bottom-date")}>{formatDate(post.date)}</p>
         <div className={cn("bottom-notation-wrapper")}>
-          <div className={cn("bottom-notation")}>
-            <img src={heart_empty} alt="" />
+          {/* <div className={cn("bottom-notation")} onClick={() => { setLike(like+1); click(); }}> */}
+          <div className={cn("bottom-notation")} >
+            <img src={heart_empty} alt="" onClick={(e) =>{ setLike(1) ;click();console.log(e.target)}} />
             <p className={cn("bottom-notation-likes")}>{post.likes}</p>
           </div>
           <div className={cn("bottom-notation")}>

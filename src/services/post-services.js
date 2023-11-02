@@ -59,3 +59,26 @@ export async function getOnePostData(id,headers) {
     throw new Error("An error occurred while making the API call.");
   }
 }
+
+
+export async function postLikeData(id,headers,urlencoded) {
+
+  const url = `http://localhost:3000/api/posts/post/${id}/like`;
+  // let urlencoded = new URLSearchParams();
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body:urlencoded,
+      // redirect: 'follow'
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error("An error occurred while making the API call.");
+  }
+}
