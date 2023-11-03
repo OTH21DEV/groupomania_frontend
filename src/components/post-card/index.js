@@ -7,7 +7,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index, url, click, like, setLike, loading, message }) => {
+const PostCard = ({ post, index, url, click, like, setLike, loading, message, callApi }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
 
@@ -15,10 +15,24 @@ const PostCard = ({ post, index, url, click, like, setLike, loading, message }) 
     setIsClicked(true);
   }
 
-  const handleImageClick = () => {
-    if (message === false) {
-      setLike(1);
-      click();
+
+  async function handleImageClick (){
+    try {
+      if (!callApi && message === false) {
+
+        // Add your API call logic here
+        console.log("API called");
+        // Simulate an API call delay (remove this line in your actual implementation)
+        await  setLike(1);
+      await click()
+        // Update the like state or any other necessary logic
+      
+      }
+
+
+    } catch (error) {
+      // Handle error case
+      console.log(error.message);
     }
   };
 

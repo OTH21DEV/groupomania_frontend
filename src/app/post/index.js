@@ -13,7 +13,7 @@ const Post = () => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
   const [loading, setLoading] = useState(null);
-  
+  const [isApiCallInProgress, setIsApiCallInProgress] = useState(false);
   const [message, setMessage] = useState("");
 
   let id = useParams();
@@ -44,7 +44,7 @@ const Post = () => {
   //API call
   async function postLikeApi() {
     try {
-   
+      setIsApiCallInProgress(true)
       // setMessage("")
       const result = await postLikeData(id.id, headers,urlencoded);
    
@@ -55,6 +55,8 @@ const Post = () => {
   
       // Handle error case
       console.log(error.message);
+    }finally {
+      setIsApiCallInProgress(false); // Set API call completed
     }
   }
 
@@ -64,7 +66,7 @@ const Post = () => {
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
-        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} like={like}  message={message}></PostCard>
+        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} like={like}  message={message} callApi={isApiCallInProgress}></PostCard>
         <Comment avatar={userData?.avatarUrl}></Comment>
       </PageLayoutLight>
     </div>
