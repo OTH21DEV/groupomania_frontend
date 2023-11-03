@@ -102,3 +102,8 @@
 .Post-wrapper {
   width: 100%;
 }
+
+.Post-disabled {
+  opacity: 0.5; /* or any other styling to indicate it's disabled */
+  pointer-events: none; /* disable pointer events on the image */
+}

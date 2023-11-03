@@ -7,7 +7,7 @@ import { getAllPostsData } from "../../services/post-services";
 // import heart_empty from "../../assets/heart_empty.png";
 // import chat_bubble from "../../assets/chat_bubble.png";
 import PostCard from "../post-card";
-
+import { postLikeData } from "../../services/post-services";
 import "./style.css";
 
 const AllPosts = () => {
@@ -15,6 +15,11 @@ const AllPosts = () => {
   const [posts, setPosts] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
+
+  //test
+
+
+  //
 
   let userData = JSON.parse(localStorage.getItem("userData"));
   let headers = new Headers();
@@ -35,7 +40,7 @@ const AllPosts = () => {
   getPostsApi();
 
 
-
+//test
 
 
   return (

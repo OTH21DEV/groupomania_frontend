@@ -12,6 +12,9 @@ import { postLikeData } from "../../services/post-services";
 const Post = () => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
+  const [loading, setLoading] = useState(null);
+  
+  const [message, setMessage] = useState("");
 
   let id = useParams();
   const navigate = useNavigate();
@@ -26,7 +29,8 @@ const Post = () => {
     try {
       const result = await getOnePostData(id.id, headers);
 
-      setPost(result.message);
+      setPost(result);
+      setMessage(result.isVoted)
       // console.log(post)
     } catch (error) {
       // Handle error case
@@ -40,27 +44,27 @@ const Post = () => {
   //API call
   async function postLikeApi() {
     try {
+   
+      // setMessage("")
       const result = await postLikeData(id.id, headers,urlencoded);
-
-      // setPost(result.message);
+   
+   
       console.log(result)
       // console.log(post)
     } catch (error) {
+  
       // Handle error case
       console.log(error.message);
     }
   }
-// postLikeApi()
-  // console.log(post)
-// console.log(like)
-  // let userData = JSON.parse(localStorage.getItem("userData"));
+
   return (
     <div style={{ display: "flex" }}>
       <Nav />
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
-        <PostCard post={post} index={post.id_post} url={""} click={postLikeApi} setLike={setLike} like={like}></PostCard>
+        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} like={like}  message={message}></PostCard>
         <Comment avatar={userData?.avatarUrl}></Comment>
       </PageLayoutLight>
     </div>
