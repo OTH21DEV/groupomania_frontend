@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { createPost } from "../../services/post-services";
-import {  useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./style.css";
 import Popup from "../popup";
 
@@ -15,7 +15,7 @@ const PostForm = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState({});
- 
+
   const location = useLocation();
   let userData = JSON.parse(localStorage.getItem("userData"));
   console.log(userData);
@@ -65,8 +65,6 @@ const PostForm = () => {
     }
 
     submitForm();
-
-  
   }
   return (
     <form

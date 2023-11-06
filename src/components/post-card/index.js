@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import heart_empty from "../../assets/heart_empty.png";
 import heart_full from "../../assets/heart_full.png";
 import chat_bubble from "../../assets/chat_bubble.png";
@@ -7,34 +8,31 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index, url, click, like, setLike, loading, message, callApi }) => {
+const PostCard = ({ post, index, url, click, setLike, message,id }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
+  let navigate=useNavigate()
 
   function handleClick() {
     setIsClicked(true);
   }
 
-
-  async function handleImageClick (){
+  async function handleImageClick() {
     try {
-      if (!callApi && message === false) {
-
-        // Add your API call logic here
+      if (message === false) {
         console.log("API called");
-        // Simulate an API call delay (remove this line in your actual implementation)
-        await  setLike(1);
-      await click()
-        // Update the like state or any other necessary logic
-      
+
+        await setLike(1);
+        await click();
+      } else if (message === true) {
+        await setLike(-1);
+        await click();
       }
-
-
     } catch (error) {
       // Handle error case
       console.log(error.message);
     }
-  };
+  }
 
   return (
     <div className={cn("wrapper")}>
@@ -66,6 +64,17 @@ const PostCard = ({ post, index, url, click, like, setLike, loading, message, ca
           </div>
         </div>
       </div>
+
+{id && <>
+
+  <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
+          Modify
+        </button>
+        <button className={cn("delete-btn")} >
+          Delete
+        </button>
+</>}
+
     </div>
   );
 };
