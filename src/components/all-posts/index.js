@@ -45,7 +45,6 @@ const AllPosts = () => {
       {posts
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .map((post, index) => (
-          // <PostCard post={post} index={index} url={`/post?:id=${post.id_post}`}></PostCard>
           <>
             <PostCard post={post} index={index} url={`/post/${post.id_post}`}></PostCard>
           </>

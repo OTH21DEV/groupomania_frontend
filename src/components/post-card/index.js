@@ -8,10 +8,10 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index, url, click, setLike, message,id }) => {
+const PostCard = ({ post, index, url, click, setLike, isVoted, isAuthor, id }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
-  let navigate=useNavigate()
+  let navigate = useNavigate();
 
   function handleClick() {
     setIsClicked(true);
@@ -19,12 +19,12 @@ const PostCard = ({ post, index, url, click, setLike, message,id }) => {
 
   async function handleImageClick() {
     try {
-      if (message === false) {
+      if (isVoted === false) {
         console.log("API called");
 
         await setLike(1);
         await click();
-      } else if (message === true) {
+      } else if (isVoted === true) {
         await setLike(-1);
         await click();
       }
@@ -55,7 +55,7 @@ const PostCard = ({ post, index, url, click, setLike, message,id }) => {
           {/* <div className={cn("bottom-notation")} onClick={() => { setLike(like+1); click(); }}> */}
           <div className={cn("bottom-notation")}>
             {/* <img src={heart_empty} alt="" onClick={(e) =>{  console.log(e.target)}} /> */}
-            <img src={message === true ? heart_full : heart_empty} alt="" onClick={handleImageClick} />
+            <img src={isVoted === true ? heart_full : heart_empty} alt="" onClick={handleImageClick} />
             <p className={cn("bottom-notation-likes")}>{post?.likes}</p>
           </div>
           <div className={cn("bottom-notation")}>
@@ -65,16 +65,14 @@ const PostCard = ({ post, index, url, click, setLike, message,id }) => {
         </div>
       </div>
 
-{id && <>
-
-  <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
-          Modify
-        </button>
-        <button className={cn("delete-btn")} >
-          Delete
-        </button>
-</>}
-
+      {isAuthor === true && (
+        <>
+          <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
+            Modify
+          </button>
+          <button className={cn("delete-btn")}>Delete</button>
+        </>
+      )}
     </div>
   );
 };

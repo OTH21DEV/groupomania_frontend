@@ -5,6 +5,7 @@ import ForgotPassword from "./forgot-password";
 import ResetPassword from "./reset-password";
 import Posts from "./posts/index";
 import NewPost from "./new-post";
+import ModifyPost from "./modify-post";
 import Post from "./post";
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
           <Route path="/posts" element={<Posts />} />
           <Route path="/new-post" element={<NewPost />} />
           <Route path="/post/:id" element={<Post/>} />
-          <Route path="/modify-post/:id" element={<NewPost/> } />
+          <Route path="/modify-post/:id" element={<ModifyPost/> } />
         </Routes>
       </Router>
     </>

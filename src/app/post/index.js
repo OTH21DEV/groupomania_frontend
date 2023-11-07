@@ -11,7 +11,8 @@ import { postLikeData } from "../../services/post-services";
 const Post = () => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
-  const [message, setMessage] = useState("");
+  const [isVoted, setIsVoted] = useState("");
+  const [isAuthor, setIsAuthor] = useState("");
 
   let id = useParams();
   let userData = JSON.parse(localStorage.getItem("userData"));
@@ -25,7 +26,9 @@ const Post = () => {
       const result = await getOnePostData(id.id, headers);
 
       setPost(result);
-      setMessage(result.isVoted);
+      setIsVoted(result.isVoted);
+      setIsAuthor(result.isAuthor)
+      localStorage.setItem('postData',JSON.stringify(post))
       // console.log(post)
     } catch (error) {
       // Handle error case
@@ -51,7 +54,7 @@ const Post = () => {
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
-        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} message={message} id={id.id}></PostCard>
+        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor}id={id.id}></PostCard>
         <Comment avatar={userData?.avatarUrl}></Comment>
       </PageLayoutLight>
     </div>
