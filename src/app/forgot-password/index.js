@@ -6,7 +6,7 @@ const ForgotPassword = () => {
   return (
     // <FormLayout>
       <FormForgotPassword/>
-    //  </FormLayout>
+    
   );
 };
 

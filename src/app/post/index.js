@@ -5,15 +5,18 @@ import Header from "../../components/header";
 import Nav from "../../components/nav";
 import PostCard from "../../components/post-card";
 import { getOnePostData } from "../../services/post-services";
+import { deletePostData } from "../../services/post-services";
 import Comment from "../../components/comment";
 import { postLikeData } from "../../services/post-services";
+import Popup from "../../components/popup";
 
 const Post = () => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
   const [isVoted, setIsVoted] = useState("");
   const [isAuthor, setIsAuthor] = useState("");
-
+  const [isClicked, setIsClicked] = useState(false);
+  let navigate = useNavigate();
   let id = useParams();
   let userData = JSON.parse(localStorage.getItem("userData"));
   let headers = new Headers();
@@ -27,8 +30,8 @@ const Post = () => {
 
       setPost(result);
       setIsVoted(result.isVoted);
-      setIsAuthor(result.isAuthor)
-      localStorage.setItem('postData',JSON.stringify(post))
+      setIsAuthor(result.isAuthor);
+      localStorage.setItem("postData", JSON.stringify(post));
       // console.log(post)
     } catch (error) {
       // Handle error case
@@ -38,7 +41,7 @@ const Post = () => {
 
   getPostApi();
 
-  //API call
+  //API call save the like +-
   async function postLikeApi() {
     try {
       const result = await postLikeData(id.id, headers, urlencoded);
@@ -48,14 +51,31 @@ const Post = () => {
     }
   }
 
+  //API call delete Post
+  async function deletePostApi() {
+    try {
+      setIsClicked(true);
+      const result = await deletePostData(id.id, headers);
+      // console.log(result);
+      navigate("/posts");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function handleClick() {
+    setIsClicked(!isClicked);
+  }
+
   return (
     <div style={{ display: "flex" }}>
       <Nav />
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
-        <PostCard post={post.message} index={post?.id_post} url={""} click={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor}id={id.id}></PostCard>
+        <PostCard post={post.message} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
         <Comment avatar={userData?.avatarUrl}></Comment>
+        {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>
     </div>
   );

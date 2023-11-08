@@ -71,7 +71,7 @@ const NewPost = () => {
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
         <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} ></PostForm>
-        {showSuccessMessage && <Popup text={"Post created"} link={"/posts"}></Popup>}
+        {showSuccessMessage && <Popup text={"Post created"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
     </div>
   );

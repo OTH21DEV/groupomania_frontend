@@ -11,6 +11,8 @@ button {
   align-self: center;
 }
 
+
+
 .Form-forgot-content {
   text-align: center;
 }
@@ -18,7 +20,6 @@ button {
 .Form-forgot-msg {
   display: flex;
   flex-direction: column;
- 
 }
 
 .Form-forgot-error-msg {
@@ -26,27 +27,19 @@ button {
   font-size: 0.7em;
   color: #234761;
   font-weight: 600;
-
 }
 .Form-forgot {
   width: 490px;
- 
-
+min-height:280px;
   display: flex;
   flex-direction: column;
   /* width:380px; */
-
-
-
-
 
   border-radius: 5px;
   background-color: white;
   animation: show 1.1s;
   border: 1px solid transparent;
   border-radius: 10px;
-
-
 
   background: #fafafa;
   border-radius: 10px;
@@ -57,27 +50,15 @@ button {
 
 .Form-forgot-wrapper {
   display: flex;
-  flex-direction: column;
-  width:380px;
+ align-items:center;
+  justify-content: center;
+  width: 100%;
+height:100vh;
 
 
 
+  background: url(../../assets/shop_test.jpg);
 
-
-  border-radius: 5px;
-  background-color: white;
-  animation: show 1.1s;
-  border: 1px solid transparent;
-  border-radius: 10px;
-
-
-
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 25px;
-  display: flex;
-  margin: 100px;
- 
 }
 .Form-forgot-content h2 {
   color: #1fab89;
@@ -89,7 +70,6 @@ button {
   color: #212121;
   font-size: 0.8em;
   font-family: "Lato", sans-serif;
-
 }
 
 .Form-forgot-input {

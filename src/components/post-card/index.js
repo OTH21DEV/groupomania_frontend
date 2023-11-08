@@ -8,7 +8,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index, url, click, setLike, isVoted, isAuthor, id }) => {
+const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBtn }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
   let navigate = useNavigate();
@@ -23,10 +23,10 @@ const PostCard = ({ post, index, url, click, setLike, isVoted, isAuthor, id }) =
         console.log("API called");
 
         await setLike(1);
-        await click();
+        await like();
       } else if (isVoted === true) {
         await setLike(-1);
-        await click();
+        await like();
       }
     } catch (error) {
       // Handle error case
@@ -70,7 +70,7 @@ const PostCard = ({ post, index, url, click, setLike, isVoted, isAuthor, id }) =
           <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
             Modify
           </button>
-          <button className={cn("delete-btn")}>Delete</button>
+          <button className={cn("delete-btn")} onClick={clickBtn}>Delete</button>
         </>
       )}
     </div>

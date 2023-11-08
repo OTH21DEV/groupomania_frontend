@@ -64,8 +64,7 @@ export async function getOnePostData(id,headers) {
 
 
 export async function updateOnePostData(id,formData,headers) {
-  // const url = `http://localhost:3000/api/post?id=${apiEndpoint}`;
-  // const url = `http://localhost:3000/api/post/:id=${apiEndpoint}`;
+  
   const url = `http://localhost:3000/api/posts/modify-post/${id}`;
   // let urlencoded = new URLSearchParams();
   try {
@@ -86,6 +85,31 @@ export async function updateOnePostData(id,formData,headers) {
     throw new Error("An error occurred while making the API call.");
   }
 }
+
+export async function deletePostData(id,headers) {
+
+  const url = `http://localhost:3000/api/posts/post/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: headers,
+      
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error("An error occurred while making the API call.");
+  }
+}
+
+
+
+
 
 export async function postLikeData(id,headers,urlencoded) {
 

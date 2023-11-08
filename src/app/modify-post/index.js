@@ -83,7 +83,7 @@ const ModifyPost = () => {
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
         <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} postData={postData.message}></PostForm>
-        {showSuccessMessage && <Popup text={"Post modified"} link={"/posts"}></Popup>}
+        {showSuccessMessage && <Popup text={"Post modified"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
     </div>
   );

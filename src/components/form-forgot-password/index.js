@@ -59,7 +59,7 @@ const FormForgotPassword = () => {
           </div>
         </form>
       ) : (
-        <Popup text={"Password reset email sent successfully to your email"} link={"/login"} />
+        <Popup text={"Password reset email sent successfully to your email"} link={"/"} btnName={'CLOSE'} isClicked={false}/>
       )}
     </div>
   );

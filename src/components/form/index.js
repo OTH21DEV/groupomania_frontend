@@ -307,11 +307,11 @@ const Form = () => {
           </div>
         </animated.div>
       </animated.div>
-      {/* ) : ( */}
+ 
 
-      {showSuccessMessage && <Popup text={"User created"} link={"/login"}></Popup>}
+      {showSuccessMessage && <Popup text={"User created"} link={"/"} btnName={"CLOSE"} isClicked={false}></Popup>}
 
-      {/* )} */}
+     
     </div>
   );
 };
