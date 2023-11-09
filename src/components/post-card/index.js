@@ -9,6 +9,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBtn }) => {
+  // console.log(post)
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
   let navigate = useNavigate();
@@ -60,7 +61,7 @@ const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBt
           </div>
           <div className={cn("bottom-notation")}>
             <img src={chat_bubble} alt="" />
-            <p className={cn("bottom-notation-comments")}>6</p>
+            <p className={cn("bottom-notation-comments")}>{post?.comments=== null? 0: post?.comments}</p>
           </div>
         </div>
       </div>

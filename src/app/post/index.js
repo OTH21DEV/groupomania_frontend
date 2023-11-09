@@ -23,6 +23,7 @@ const Post = () => {
   headers.append("Authorization", `Bearer ${userData.token}`);
   let urlencoded = new URLSearchParams();
   urlencoded.append("like", like);
+  
   //API call
   async function getPostApi() {
     try {
