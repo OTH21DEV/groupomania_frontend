@@ -37,7 +37,7 @@ export async function getAllPostsData(headers) {
   }
 }
 
-export async function getOnePostData(id,headers) {
+export async function getOnePostData(id, headers) {
   // const url = `http://localhost:3000/api/post?id=${apiEndpoint}`;
   // const url = `http://localhost:3000/api/post/:id=${apiEndpoint}`;
   const url = `http://localhost:3000/api/posts/post/${id}`;
@@ -46,7 +46,7 @@ export async function getOnePostData(id,headers) {
     const response = await fetch(url, {
       method: "GET",
       headers: headers,
-      
+
       // body:urlencoded,
       // redirect: 'follow'
     });
@@ -61,10 +61,7 @@ export async function getOnePostData(id,headers) {
   }
 }
 
-
-
-export async function updateOnePostData(id,formData,headers) {
-  
+export async function updateOnePostData(id, formData, headers) {
   const url = `http://localhost:3000/api/posts/modify-post/${id}`;
   // let urlencoded = new URLSearchParams();
   try {
@@ -86,15 +83,13 @@ export async function updateOnePostData(id,formData,headers) {
   }
 }
 
-export async function deletePostData(id,headers) {
-
+export async function deletePostData(id, headers) {
   const url = `http://localhost:3000/api/posts/post/${id}`;
 
   try {
     const response = await fetch(url, {
       method: "DELETE",
       headers: headers,
-      
     });
 
     if (!response.ok) {
@@ -107,20 +102,34 @@ export async function deletePostData(id,headers) {
   }
 }
 
-
-
-
-
-export async function postLikeData(id,headers,urlencoded) {
-
+export async function postLikeData(id, headers, urlencoded) {
   const url = `http://localhost:3000/api/posts/post/${id}/like`;
   // let urlencoded = new URLSearchParams();
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: headers,
-      body:urlencoded,
+      body: urlencoded,
       // redirect: 'follow'
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error("An error occurred while making the API call.");
+  }
+}
+
+export async function getPostCommentsData(id, headers) {
+  const url = `http://localhost:3000/api/posts/post/${id}/comments`;
+  // let urlencoded = new URLSearchParams();
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
     });
 
     if (!response.ok) {
