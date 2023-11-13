@@ -1,21 +1,27 @@
-import React from 'react'
+import React from "react";
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
+import formatDate from "../../utils/format-date";
 
-const Comments = ({comments}) => {
-    console.log(comments)
+const Comments = ({ comments }) => {
+  const cn = bem("Comments");
+  // console.log(comments)
   return (
-    <>
-    {comments
-   
-   
-        .map((comment, index) => (
-          <>
-           <p>{comment.pseudo}</p>
-           <p>{comment.body}</p>
-           <p>{comment.date}</p>
-          </>
-        ))}
-    </>
-  )
-}
+    < >
+      {comments.sort((a, b) => new Date(b.date) - new Date(a.date))
+      .map((comment, index) => (
+        <div className={cn("container")}>
+          <p>{comment.pseudo}</p>
+          <p>{comment.body}</p>
 
-export default Comments
+          <div className={cn("bottom")}>
+            <p>{formatDate(comment.date)}</p>
+            <button> Reply to </button>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default Comments;

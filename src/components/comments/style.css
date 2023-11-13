@@ -1,0 +1,25 @@
+.Comments-bottom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.Comments-bottom p {
+  color: #615a57;
+  font-size: 0.9em;
+}
+.Comments-bottom button {
+  background: none;
+  box-shadow: none;
+  color: #03a9f4;
+  text-transform: none;
+  font-weight: none;
+  margin-top: inherit;
+  font-weight: inherit;
+}
+
+.Comments-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1.7px solid #e1e1e1;
+}

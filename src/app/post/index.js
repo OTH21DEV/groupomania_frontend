@@ -66,8 +66,8 @@ const Post = () => {
     }
   }
 
-   //API call - get post's comments 
-   async function getPostCommentsApi() {
+  //API call - get post's comments
+  async function getPostCommentsApi() {
     try {
       const result = await getPostCommentsData(id.id, headers);
 
@@ -81,8 +81,7 @@ const Post = () => {
     }
   }
 
-  getPostCommentsApi()
-  
+  getPostCommentsApi();
 
   function handleClick() {
     setIsClicked(!isClicked);
@@ -95,7 +94,7 @@ const Post = () => {
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
         <PostCard post={post.message} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
-      <Comments comments={comments}></Comments>
+        <Comments comments={comments}></Comments>
         <Comment avatar={userData?.avatarUrl}></Comment>
         {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>
