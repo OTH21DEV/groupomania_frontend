@@ -7,6 +7,7 @@ import PostCard from "../../components/post-card";
 import { getOnePostData } from "../../services/post-services";
 import { deletePostData } from "../../services/post-services";
 import { getPostCommentsData } from "../../services/post-services";
+import { postCommentData } from "../../services/post-services";
 import Comment from "../../components/comment";
 import { postLikeData } from "../../services/post-services";
 import Popup from "../../components/popup";
@@ -18,6 +19,8 @@ const Post = () => {
   const [isAuthor, setIsAuthor] = useState("");
   const [isClicked, setIsClicked] = useState(false);
   const [comments, setComments] = useState([]);
+  const [commentedBy,setCommentedBy] = useState({})
+
   let navigate = useNavigate();
   let id = useParams();
   let userData = JSON.parse(localStorage.getItem("userData"));
@@ -70,7 +73,7 @@ const Post = () => {
   async function getPostCommentsApi() {
     try {
       const result = await getPostCommentsData(id.id, headers);
-
+// console.log(result)
       setComments(result.data);
       localStorage.setItem("commentsData", JSON.stringify(comments));
       // localStorage.setItem("postData", JSON.stringify(post));
@@ -86,6 +89,16 @@ const Post = () => {
   function handleClick() {
     setIsClicked(!isClicked);
   }
+    //API call post comment
+    async function postCommentApi(parent_id) {
+      try {
+        const result = await postCommentData(id.id, parent_id,headers );
+        console.log(result);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  
 
   return (
     <div style={{ display: "flex" }}>
@@ -94,7 +107,8 @@ const Post = () => {
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
         <PostCard post={post.message} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
-        <Comments comments={comments}></Comments>
+        {/* <Comments comments={comments} postComment={postCommentApi} textarea={ <Comment avatar={userData?.avatarUrl}/></Comments> */}
+        <Comments comments={comments} postComment={postCommentApi} textarea={<Comment avatar={userData?.avatarUrl} />} />
         <Comment avatar={userData?.avatarUrl}></Comment>
         {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>

@@ -141,3 +141,22 @@ export async function getPostCommentsData(id, headers) {
     throw new Error("An error occurred while making the API call.");
   }
 }
+
+export async function postCommentData(id, parent_id, headers) {
+  const url = `http://localhost:3000/api/posts/post/${id}/${parent_id}`;
+  // let urlencoded = new URLSearchParams();
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error("An error occurred while making the API call.");
+  }
+}
