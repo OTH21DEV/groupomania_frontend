@@ -19,7 +19,10 @@ const Post = () => {
   const [isAuthor, setIsAuthor] = useState("");
   const [isClicked, setIsClicked] = useState(false);
   const [comments, setComments] = useState([]);
-  const [commentedBy,setCommentedBy] = useState({})
+  // const [commentedBy, setCommentedBy] = useState({});
+  const [parentId, setParentId] = useState(null);
+  //for textarea comment creation
+  const [text, setText] = useState("");
 
   let navigate = useNavigate();
   let id = useParams();
@@ -28,15 +31,19 @@ const Post = () => {
   headers.append("Authorization", `Bearer ${userData.token}`);
   let urlencoded = new URLSearchParams();
   urlencoded.append("like", like);
+  // let formData = new FormData();
+  // formData.append("body", text)
+  // formData.append("parent_id", parentId)
 
   //API call
   async function getPostApi() {
     try {
       const result = await getOnePostData(id.id, headers);
-
-      setPost(result);
+      // console.log(result)
+      setPost(result.post);
       setIsVoted(result.isVoted);
       setIsAuthor(result.isAuthor);
+      setComments(result.comments);
       localStorage.setItem("postData", JSON.stringify(post));
       // console.log(post)
     } catch (error) {
@@ -61,7 +68,7 @@ const Post = () => {
   async function deletePostApi() {
     try {
       setIsClicked(true);
-      const result = await deletePostData(id.id, headers);
+      await deletePostData(id.id, headers);
       // console.log(result);
       navigate("/posts");
     } catch (error) {
@@ -69,47 +76,34 @@ const Post = () => {
     }
   }
 
-  //API call - get post's comments
-  async function getPostCommentsApi() {
+  //API call-   post comment
+  async function postCommentApi() {
+    let urlencoded = new URLSearchParams();
+    urlencoded.append("body", text);
+    urlencoded.append("parent_id", parentId);
+
     try {
-      const result = await getPostCommentsData(id.id, headers);
-// console.log(result)
-      setComments(result.data);
-      localStorage.setItem("commentsData", JSON.stringify(comments));
-      // localStorage.setItem("postData", JSON.stringify(post));
-      // console.log(post)
+      await postCommentData(id.id, headers, urlencoded);
     } catch (error) {
-      // Handle error case
       console.log(error.message);
     }
   }
 
-  getPostCommentsApi();
-
   function handleClick() {
     setIsClicked(!isClicked);
   }
-    //API call post comment
-    async function postCommentApi(parent_id) {
-      try {
-        const result = await postCommentData(id.id, parent_id,headers );
-        console.log(result);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-  
 
+  // console.log(parentId)
   return (
     <div style={{ display: "flex" }}>
       <Nav />
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
 
-        <PostCard post={post.message} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
+        <PostCard post={post} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
         {/* <Comments comments={comments} postComment={postCommentApi} textarea={ <Comment avatar={userData?.avatarUrl}/></Comments> */}
-        <Comments comments={comments} postComment={postCommentApi} textarea={<Comment avatar={userData?.avatarUrl} />} />
-        <Comment avatar={userData?.avatarUrl}></Comment>
+        <Comments comments={comments} textarea={<Comment avatar={userData?.avatarUrl} postComment={postCommentApi} parentId={parentId} setText={setText} text={text} />} setParentId={setParentId} />
+        <Comment avatar={userData?.avatarUrl} postComment={postCommentApi}></Comment>
         {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>
     </div>

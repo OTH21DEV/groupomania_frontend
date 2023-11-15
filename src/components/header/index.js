@@ -16,7 +16,8 @@ const Header = ({ title, pseudo,avatar }) => {
         <img className={cn("icon_notification")}src={notification} alt=""/>
         <img className={cn("icon_line")}src={line} alt=""/>
         <p>{pseudo}</p>
-        <img className={cn("icon_avatar")}src={avatar}alt=""></img>
+        {avatar?  <img className={cn("icon_avatar")}src={avatar}alt=""></img> : ""}
+       
       </div>
     </section>
   );
