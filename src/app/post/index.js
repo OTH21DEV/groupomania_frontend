@@ -103,7 +103,7 @@ const Post = () => {
         <PostCard post={post} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
         {/* <Comments comments={comments} postComment={postCommentApi} textarea={ <Comment avatar={userData?.avatarUrl}/></Comments> */}
         <Comments comments={comments} textarea={<Comment avatar={userData?.avatarUrl} postComment={postCommentApi} parentId={parentId} setText={setText} text={text} />} setParentId={setParentId} />
-        <Comment avatar={userData?.avatarUrl} postComment={postCommentApi}></Comment>
+        <Comment avatar={userData?.avatarUrl} postComment={postCommentApi} parentId={parentId} setText={setText} text={text}></Comment>
         {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>
     </div>
