@@ -47,6 +47,7 @@ import formatDate from "../../utils/format-date";
 const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
   const cn = bem("Comments");
   const [clickedId, setClickedId] = useState(null);
+  // console.log(comments)
 
   function handleClick(id) {
     if (clickedId === id) {
@@ -56,7 +57,7 @@ const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
       setParentId(id);
     }
   }
-console.log(comments)
+// console.log(comments)
 
 return (
   <>
@@ -74,6 +75,7 @@ return (
             <p>{comment.pseudo}</p>
             <p>{comment.body}</p>
             <div className={cn("bottom")}>
+            <p>{formatDate(comment.date)}</p>
               {/* <p>{formatDate(comment.date)}</p>
               <button onClick={() => handleClick(index)} id={index}></button> */}
               <button onClick={() => handleClick(id)} id={index}>
@@ -81,7 +83,7 @@ return (
               </button>
             </div>
             {clickedId === id && textarea}
-            {/* {clickedId === index && textarea} */}
+       
           </div>
         );
       })}
