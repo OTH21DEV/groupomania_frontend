@@ -12,6 +12,7 @@ import Comment from "../../components/comment";
 import { postLikeData } from "../../services/post-services";
 import Popup from "../../components/popup";
 import Comments from "../../components/comments";
+
 const Post = () => {
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
@@ -19,10 +20,11 @@ const Post = () => {
   const [isAuthor, setIsAuthor] = useState("");
   const [isClicked, setIsClicked] = useState(false);
   const [comments, setComments] = useState([]);
-  // const [commentedBy, setCommentedBy] = useState({});
+
   const [parentId, setParentId] = useState(null);
   //for textarea comment creation
   const [text, setText] = useState("");
+
 
   let navigate = useNavigate();
   let id = useParams();
@@ -31,28 +33,25 @@ const Post = () => {
   headers.append("Authorization", `Bearer ${userData.token}`);
   let urlencoded = new URLSearchParams();
   urlencoded.append("like", like);
-  // let formData = new FormData();
-  // formData.append("body", text)
-  // formData.append("parent_id", parentId)
 
-  //API call
-  async function getPostApi() {
-    try {
-      const result = await getOnePostData(id.id, headers);
-      // console.log(result)
-      setPost(result.post);
-      setIsVoted(result.isVoted);
-      setIsAuthor(result.isAuthor);
-      setComments(result.comments);
-      localStorage.setItem("postData", JSON.stringify(post));
-      // console.log(post)
-    } catch (error) {
-      // Handle error case
-      console.log(error.message);
+  // API call to fetch post data
+
+  useEffect(() => {
+    async function getPostData() {
+      try {
+        const result = await getOnePostData(id.id, headers);
+        setPost(result.post);
+        setIsVoted(result.isVoted);
+        setIsAuthor(result.isAuthor);
+        setComments(result.comments);
+        localStorage.setItem("postData", JSON.stringify(post));
+      } catch (error) {
+        console.log(error.message);
+      }
     }
-  }
 
-  getPostApi();
+    getPostData();
+  }, []); // Empty dependency array ensures the effect runs only once
 
   //API call save the like +-
   async function postLikeApi() {
@@ -83,7 +82,9 @@ const Post = () => {
     urlencoded.append("parent_id", parentId);
 
     try {
+
       await postCommentData(id.id, headers, urlencoded);
+      setText("")
     } catch (error) {
       console.log(error.message);
     }
@@ -93,17 +94,21 @@ const Post = () => {
     setIsClicked(!isClicked);
   }
 
-  // console.log(parentId)
   return (
     <div style={{ display: "flex" }}>
       <Nav />
       <PageLayoutLight style={"space-between"}>
         <Header title={"Company news"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
-
         <PostCard post={post} index={post?.id_post} url={""} like={postLikeApi} setLike={setLike} isVoted={isVoted} isAuthor={isAuthor} id={id.id} clickBtn={handleClick}></PostCard>
-        {/* <Comments comments={comments} postComment={postCommentApi} textarea={ <Comment avatar={userData?.avatarUrl}/></Comments> */}
-        <Comments comments={comments} textarea={<Comment avatar={userData?.avatarUrl} postComment={postCommentApi} parentId={parentId} setText={setText} text={text} />} setParentId={setParentId} />
-        <Comment avatar={userData?.avatarUrl} postComment={postCommentApi} parentId={parentId} setText={setText} text={text}></Comment>
+        
+        {/* Includes reply comments -  parentId is the id of replied comment */}
+        <Comments
+          comments={comments}
+          textarea={<Comment avatar={userData?.avatarUrl} postComment={postCommentApi} setText={setText} text={text} setParentId={setParentId} id={parentId} />}
+          setParentId={setParentId}
+        />
+        {/* MAIN REPLY - parentId is the id of main post  */}
+        <Comment avatar={userData?.avatarUrl} postComment={postCommentApi} setText={setText} text={text} setParentId={setParentId} id={id.id}></Comment>
         {isClicked && <Popup text={"Are you sure to delete this post?"} link={"/posts"} btnName={"YES"} isClicked={isClicked} toDelete={deletePostApi}></Popup>}
       </PageLayoutLight>
     </div>
