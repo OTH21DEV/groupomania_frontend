@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import heart_empty from "../../assets/heart_empty.png";
 import heart_full from "../../assets/heart_full.png";
@@ -8,8 +8,9 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBtn }) => {
-  // console.log(post)
+const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuthor, id, clickBtn, setIsVoted }) => {
+ 
+  console.log("test");
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
   let navigate = useNavigate();
@@ -25,9 +26,17 @@ const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBt
 
         await setLike(1);
         await like();
+        //test
+        await setIsVoted(true);
+        //test
+        await getPostData()
       } else if (isVoted === true) {
         await setLike(-1);
         await like();
+        //test
+       await  setIsVoted(false);
+          //test
+          await getPostData()
       }
     } catch (error) {
       // Handle error case
@@ -35,9 +44,12 @@ const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBt
     }
   }
 
+
+
   return (
     <div className={cn("wrapper")}>
       <a className={cn("link")} href={url} id={post?.id_post} key={index} onClick={handleClick}>
+      {/* <a className={cn("link")} href={url} id={post?.id_post} key={index} > */}
         <p className={cn("link-pseudo")}>{post?.pseudo}</p>
         <h2 className={cn("link-title")}>{post?.title}</h2>
         <p className={cn("link-body")}>{post?.body}</p>
@@ -61,7 +73,7 @@ const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBt
           </div>
           <div className={cn("bottom-notation")}>
             <img src={chat_bubble} alt="" />
-            <p className={cn("bottom-notation-comments")}>{post?.comments=== null? 0: post?.comments}</p>
+            <p className={cn("bottom-notation-comments")}>{post?.comments === null ? 0 : post?.comments}</p>
           </div>
         </div>
       </div>
@@ -71,11 +83,13 @@ const PostCard = ({ post, index, url,like,setLike, isVoted, isAuthor, id,clickBt
           <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
             Modify
           </button>
-          <button className={cn("delete-btn")} onClick={clickBtn}>Delete</button>
+          <button className={cn("delete-btn")} onClick={clickBtn}>
+            Delete
+          </button>
         </>
       )}
     </div>
   );
 };
-
-export default PostCard;
+// export default PostCard;
+export default React.memo(PostCard);

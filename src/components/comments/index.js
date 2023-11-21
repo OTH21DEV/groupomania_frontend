@@ -3,7 +3,8 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import formatDate from "../../utils/format-date";
 
-const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
+const Comments =  ({comments, textarea, setParentId, depth = 0 }) => {
+
   const cn = bem("Comments");
   const [clickedId, setClickedId] = useState(null);
 
@@ -49,4 +50,4 @@ const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
   );
 };
 
-export default Comments;
+export default React.memo(Comments);
