@@ -10,12 +10,22 @@ import image from "../../assets/shop_test.jpg";
 import Popup from "../popup";
 
 const Form = () => {
+  console.log("test")
+  
+
+
+
+
+
+
+
   const [user, setUser] = useState({
     email: "",
     password: "",
     pseudo: "",
   });
-
+  const pathname = window.location.pathname;
+  console.log(pathname)
   // const [showPassword, setShowPassword] = useState(true);
   const [signUp, setSignUp] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -29,14 +39,30 @@ const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleFileChange(e) {
-    console.log(e.target)
-    const selectedFile = e.target.files[0];
-    setFileName(selectedFile.name);
-  }
+
+
+
+  // Redirect when user reloads the page
+  // useEffect(() => {
+  //   const handlePageReload = (event) => {
+  //     // Check if the page is being reloaded
+  //     if (event.currentTarget.performance.navigation.type === 1) {
+  //       // Redirect to login page
+  //      navigate('/login');
+  //     }
+  //   };
+
+  //   // Attach the event listener
+  //   window.addEventListener('beforeunload', handlePageReload);
+
+  //   // Cleanup: remove the event listener when component unmounts
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handlePageReload);
+  //   };
+  // }, [navigate]);
+
 
   function handleSubmit(e) {
-    //////////////:
 
     e.preventDefault();
 
@@ -56,8 +82,8 @@ const Form = () => {
       //append file if loaded by user
       file && formdata.append("image", file, file.name);
     }
-
-    const apiEndpoint = location.pathname === "/login" ? "/login" : "/signup";
+    const apiEndpoint = pathname === "/login" ? "/login" : "/signup";
+    // const apiEndpoint = location.pathname === "/login" ? "/login" : "/signup";
     console.log(apiEndpoint);
     //API call
     async function submitForm() {
@@ -85,27 +111,14 @@ const Form = () => {
 
     submitForm();
 
-    //test
-
-    //   function validateEmail() {
-    //     var email = user.email;
-    //     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    //     if (!email.match(emailRegex)) {
-    //         alert("Invalid email address!");
-    //         return false;
-    //     }
-    // }
-
-    // validateEmail()
     setSubmitted(true);
-
-    // handleFileChange(e)
   }
 
   function handleSignUp() {
     setSignUp(!signUp);
-    setUser({ email: "", password: "", pseudo: "" });
+    //test -was tehre
+    // setUser({ email: "", password: "", pseudo: "" });
+
     // Reset the file state object
     setFileName("");
 
@@ -118,88 +131,176 @@ const Form = () => {
     }
   }
 
-
-
   useEffect(() => {
     setUser({ email: "", password: "", pseudo: "" });
     if (location.pathname === "/signup") {
+   
       setSignUp(true);
     } else {
       setSignUp(false);
     }
-  }, [location]);
+  }, [location.pathname]);
 
   ////////////////
   const cn = bem("Form");
 
-  const [topLayerProps, setTopLayerProps] = useSpring(() => ({ marginLeft: "0%" }));
-  const [slideBoxProps, setSlideBoxProps] = useSpring(() => ({
-    marginLeft: "100%",
-    transform: "translateX(-50%)",
-    background: "#f9f5ff",
-  }));
+  // const [topLayerProps, setTopLayerProps] = useSpring(() => ({ marginLeft: "0%" }));
+  // const [slideBoxProps, setSlideBoxProps] = useSpring(() => ({
+  //   marginLeft: "100%",
+  //   transform: "translateX(-50%)",
+  //   background: "#f9f5ff",
+  // }));
 
-  useEffect(() => {
-    const handleGoRightClick = () => {
+  // useEffect(() => {
+  //   const handleGoRightClick = () => {
+  //     setSlideBoxProps({
+  //       marginLeft: window.innerWidth > 769 ? "0%" : "50%",
+  //       // marginLeft:  "0%" ,
+  //       background: "#f9f5ff",
+  //     });
+  //     setTopLayerProps({ marginLeft: "100%" });
+
+  //     setButtonClicked(false);
+  //   };
+
+  //   const handleGoLeftClick = () => {
+  //     if (window.innerWidth > 769) {
+  //       setSlideBoxProps({
+  //         marginLeft: "100%",
+  //         background: "#222831",
+  //       });
+  //     } else {
+  //       setSlideBoxProps({
+  //         marginLeft: "50%",
+  //         background: "#222831",
+  //       });
+  //     }
+  //     setTopLayerProps({ marginLeft: "0%" });
+
+  //     setButtonClicked(false);
+  //     // setErrorMessage({});
+  //   };
+
+
+  //   const goRightElement = document.getElementById("goRight");
+  //   const goLeftElement = document.getElementById("goLeft");
+
+  //   if (goRightElement) {
+  //     goRightElement.addEventListener("click", handleGoRightClick);
+  //   }
+
+  //   if (goLeftElement) {
+  //     goLeftElement.addEventListener("click", handleGoLeftClick);
+  //   }
+
+  //   return () => {
+  //     if (goRightElement) {
+  //       goRightElement.removeEventListener("click", handleGoRightClick);
+  //     }
+
+  //     if (goLeftElement) {
+  //       goLeftElement.removeEventListener("click", handleGoLeftClick);
+  //     }
+  //   };
+  // }, [slideBoxProps, topLayerProps]);
+
+
+
+
+  const [topLayerProps, setTopLayerProps] = useSpring(() => {
+    const storedTopLayerProps = JSON.parse(localStorage.getItem('topLayerProps'));
+    return storedTopLayerProps || { marginLeft: "0%" };
+  });
+  
+  const [slideBoxProps, setSlideBoxProps] = useSpring(() => {
+    const storedSlideBoxProps = JSON.parse(localStorage.getItem('slideBoxProps'));
+    return storedSlideBoxProps || {
+      marginLeft: "100%",
+      transform: "translateX(-50%)",
+      background: "#f9f5ff",
+    };
+  });
+  
+  const handleGoRightClick = () => {
+    setSlideBoxProps({
+      marginLeft: window.innerWidth > 769 ? "0%" : "50%",
+      background: "#f9f5ff",
+    });
+    setTopLayerProps({ marginLeft: "100%" });
+  };
+  
+  const handleGoLeftClick = () => {
+    if (window.innerWidth > 769) {
       setSlideBoxProps({
-        marginLeft: window.innerWidth > 769 ? "0%" : "50%",
-        // marginLeft:  "0%" ,
-        background: "#f9f5ff",
+        marginLeft: "100%",
+        background: "#222831",
       });
-      setTopLayerProps({ marginLeft: "100%" });
-
-      setButtonClicked(false);
+    } else {
+      setSlideBoxProps({
+        marginLeft: "50%",
+        background: "#222831",
+      });
+    }
+    setTopLayerProps({ marginLeft: "0%" });
+  };
+  
+  useEffect(() => {
+    const handlePageReload = () => {
+      sessionStorage.setItem('pageReloaded', 'true');
     };
-
-    const handleGoLeftClick = () => {
-      if (window.innerWidth > 769) {
-        setSlideBoxProps({
-          marginLeft: "100%",
-          background: "#222831",
-        });
-      } else {
-        setSlideBoxProps({
-          marginLeft: "50%",
-          background: "#222831",
-        });
-      }
-      setTopLayerProps({ marginLeft: "0%" });
-
-      setButtonClicked(false);
-      // setErrorMessage({});
-    };
-
+  
+    window.addEventListener('beforeunload', handlePageReload);
+  
     const goRightElement = document.getElementById("goRight");
     const goLeftElement = document.getElementById("goLeft");
-
+  
     if (goRightElement) {
       goRightElement.addEventListener("click", handleGoRightClick);
     }
-
+  
     if (goLeftElement) {
       goLeftElement.addEventListener("click", handleGoLeftClick);
     }
-
+  
     return () => {
+      window.removeEventListener('beforeunload', handlePageReload);
+  
       if (goRightElement) {
         goRightElement.removeEventListener("click", handleGoRightClick);
       }
-
+  
       if (goLeftElement) {
         goLeftElement.removeEventListener("click", handleGoLeftClick);
       }
     };
-  }, [slideBoxProps, topLayerProps]);
+  }, [handleGoLeftClick,handleGoRightClick]);
+  
+  useEffect(() => {
+    const pageReloaded = sessionStorage.getItem('pageReloaded');
+    if (pageReloaded) {
+      localStorage.removeItem('topLayerProps');
+      localStorage.removeItem('slideBoxProps');
+      navigate('/login');
+    } else {
+      sessionStorage.setItem('pageReloaded', 'false');
+      if (pathname === '/signup') {
+        navigate('/login');
+      }
+    }
+  }, []);
+ 
 
-  const pathname = window.location.pathname;
+
+
   // const isLogin = pathname === "/login";
 
   // Handle login or signup button click across page transitions
   const handleButtonClick = () => {
     setButtonClicked(true);
   };
-  console.log(errorMessage);
+  console.log(signUp)
   return (
+    
     <div className={cn("wrapper")}>
       <div id="back">
         <div className="backRight"></div>
@@ -257,15 +358,12 @@ const Form = () => {
                       {errorMessage.pseudo && buttonClicked && <p className={cn("error-msg-signup")}>{errorMessage.pseudo}</p>}
                     </div>
 
-       
-
                     <div className="form-element form-stack">
                       <label htmlFor="image-signup" className="form-label">
                         Image
                         <input id="image-signup" name="image" type="file" />
                       </label>
                     </div>
-
 
                     {/**Add error message on signup page */}
 
@@ -307,11 +405,8 @@ const Form = () => {
           </div>
         </animated.div>
       </animated.div>
- 
 
       {showSuccessMessage && <Popup text={"User created"} link={"/"} btnName={"CLOSE"} isClicked={false}></Popup>}
-
-     
     </div>
   );
 };
