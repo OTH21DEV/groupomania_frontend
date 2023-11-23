@@ -56,7 +56,7 @@ const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuth
 
         {post &&
           (post?.image_url ? (
-            <div className={cn("img-container")}>
+            <div className={cn(id?"img-container-post":"img-container")}>
               <img src={post?.image_url} alt="" className={cn("img")} />
             </div>
           ) : null)}

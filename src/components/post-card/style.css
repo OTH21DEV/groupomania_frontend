@@ -11,14 +11,11 @@
 
 .Post-link-title {
   font-size: 1em;
-  /* width: 100%; */
-  /*  
-      padding-left: 25px; */
   padding-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #212121;
-  /* height: 25px; */
+
 }
 
 .Post-link-body {
@@ -26,11 +23,16 @@
 }
 .Post-img-container {
   width: 100%;
-
-  /* height:60vh;
-  overflow-y: scroll; */
 }
+.Post-img-container-post {
+  width: 100%;
 
+  height:500px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
 .Post-test {
   width: 100%;
   height: 60vh;

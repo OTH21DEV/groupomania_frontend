@@ -17,7 +17,6 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
   console.log("test");
   const [apiCallComplete, setApiCallComplete] = useState(false);
 
-
   function handleClick(e) {
     e.preventDefault();
     setText(tempText); // update 'text' with the temporary text
@@ -29,8 +28,6 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
     }
     setTempText(""); // clear the temporary text after clicking the send button
   }
-
-
 
   // useEffect(() => {
   //   // if (isClicked && typeof postComment === "function") {
@@ -80,9 +77,11 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
   return (
     <div className={cn("wrapper")}>
       <div className={cn("container")}>
-        <div className={cn("avatar")}>
-          <img src={avatar} alt="" />
-        </div>
+        {avatar && (
+          <div className={cn("avatar")}>
+            <img src={avatar} alt="" />
+          </div>
+        )}
         {/* use tempText instead of text */}
         <input value={tempText} type="text" onChange={(e) => setTempText(e.target.value)} className={cn("input")} />
       </div>

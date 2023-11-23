@@ -5,68 +5,51 @@ import "./style.css";
 
 import { authData } from "../../services/auth-services";
 import { useSpring, animated, config } from "react-spring";
-// import shop from "../../assets/shop.jpg";
 import image from "../../assets/shop_test.jpg";
 import Popup from "../popup";
 
 const Form = () => {
-  console.log("test")
-  
-
-
-
-
-
-
+  const cn = bem("Form");
 
   const [user, setUser] = useState({
     email: "",
     password: "",
     pseudo: "",
   });
-  const pathname = window.location.pathname;
-  console.log(pathname)
-  // const [showPassword, setShowPassword] = useState(true);
+  // const pathname = window.location.pathname;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [pathname, setPathname] = useState("");
+
   const [signUp, setSignUp] = useState(false);
-  const [fileName, setFileName] = useState("");
   const [errorMessage, setErrorMessage] = useState({});
-
-  const [submitted, setSubmitted] = useState(false);
-
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [topLayerProps, setTopLayerProps] = useSpring(() => {
+    const storedTopLayerProps = JSON.parse(localStorage.getItem("topLayerProps"));
+    return storedTopLayerProps || { marginLeft: "0%" };
+  });
 
+  const [slideBoxProps, setSlideBoxProps] = useSpring(() => {
+    const storedSlideBoxProps = JSON.parse(localStorage.getItem("slideBoxProps"));
+    return (
+      storedSlideBoxProps || {
+        marginLeft: "100%",
+        transform: "translateX(-50%)",
+        background: "#f9f5ff",
+      }
+    );
+  });
 
-
-
-  // Redirect when user reloads the page
-  // useEffect(() => {
-  //   const handlePageReload = (event) => {
-  //     // Check if the page is being reloaded
-  //     if (event.currentTarget.performance.navigation.type === 1) {
-  //       // Redirect to login page
-  //      navigate('/login');
-  //     }
-  //   };
-
-  //   // Attach the event listener
-  //   window.addEventListener('beforeunload', handlePageReload);
-
-  //   // Cleanup: remove the event listener when component unmounts
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handlePageReload);
-  //   };
-  // }, [navigate]);
-
+  useEffect(() => {
+    setPathname(location.pathname);
+  }, [location.pathname]);
 
   function handleSubmit(e) {
-
     e.preventDefault();
-
     setErrorMessage({});
+
     let formdata = new FormData();
 
     if (location.pathname === "/login") {
@@ -83,16 +66,14 @@ const Form = () => {
       file && formdata.append("image", file, file.name);
     }
     const apiEndpoint = pathname === "/login" ? "/login" : "/signup";
-    // const apiEndpoint = location.pathname === "/login" ? "/login" : "/signup";
-    console.log(apiEndpoint);
-    //API call
+
+    //API call - post new user
+
     async function submitForm() {
       try {
         const result = await authData(apiEndpoint, formdata);
 
         setErrorMessage(result.message);
-
-        console.log(result);
 
         if (user.email !== "" && user.password !== "" && user.pseudo !== "" && result.message === "User created") {
           setShowSuccessMessage(true);
@@ -111,116 +92,30 @@ const Form = () => {
 
     submitForm();
 
-    setSubmitted(true);
+    // setSubmitted(true);
   }
 
   function handleSignUp() {
     setSignUp(!signUp);
-    //test -was tehre
-    // setUser({ email: "", password: "", pseudo: "" });
 
-    // Reset the file state object
-    setFileName("");
-
+    setButtonClicked(false);
     if (!signUp) {
       navigate("/signup");
-      // setUser({ email: "", password: "", pseudo: "" });
     } else {
       navigate("/login");
-      // setUser({ email: "", password: "", pseudo: "" });
     }
   }
 
   useEffect(() => {
     setUser({ email: "", password: "", pseudo: "" });
+
     if (location.pathname === "/signup") {
-   
       setSignUp(true);
     } else {
       setSignUp(false);
     }
   }, [location.pathname]);
 
-  ////////////////
-  const cn = bem("Form");
-
-  // const [topLayerProps, setTopLayerProps] = useSpring(() => ({ marginLeft: "0%" }));
-  // const [slideBoxProps, setSlideBoxProps] = useSpring(() => ({
-  //   marginLeft: "100%",
-  //   transform: "translateX(-50%)",
-  //   background: "#f9f5ff",
-  // }));
-
-  // useEffect(() => {
-  //   const handleGoRightClick = () => {
-  //     setSlideBoxProps({
-  //       marginLeft: window.innerWidth > 769 ? "0%" : "50%",
-  //       // marginLeft:  "0%" ,
-  //       background: "#f9f5ff",
-  //     });
-  //     setTopLayerProps({ marginLeft: "100%" });
-
-  //     setButtonClicked(false);
-  //   };
-
-  //   const handleGoLeftClick = () => {
-  //     if (window.innerWidth > 769) {
-  //       setSlideBoxProps({
-  //         marginLeft: "100%",
-  //         background: "#222831",
-  //       });
-  //     } else {
-  //       setSlideBoxProps({
-  //         marginLeft: "50%",
-  //         background: "#222831",
-  //       });
-  //     }
-  //     setTopLayerProps({ marginLeft: "0%" });
-
-  //     setButtonClicked(false);
-  //     // setErrorMessage({});
-  //   };
-
-
-  //   const goRightElement = document.getElementById("goRight");
-  //   const goLeftElement = document.getElementById("goLeft");
-
-  //   if (goRightElement) {
-  //     goRightElement.addEventListener("click", handleGoRightClick);
-  //   }
-
-  //   if (goLeftElement) {
-  //     goLeftElement.addEventListener("click", handleGoLeftClick);
-  //   }
-
-  //   return () => {
-  //     if (goRightElement) {
-  //       goRightElement.removeEventListener("click", handleGoRightClick);
-  //     }
-
-  //     if (goLeftElement) {
-  //       goLeftElement.removeEventListener("click", handleGoLeftClick);
-  //     }
-  //   };
-  // }, [slideBoxProps, topLayerProps]);
-
-
-
-
-  const [topLayerProps, setTopLayerProps] = useSpring(() => {
-    const storedTopLayerProps = JSON.parse(localStorage.getItem('topLayerProps'));
-    return storedTopLayerProps || { marginLeft: "0%" };
-  });
-  
-  const [slideBoxProps, setSlideBoxProps] = useSpring(() => {
-    const storedSlideBoxProps = JSON.parse(localStorage.getItem('slideBoxProps'));
-    return storedSlideBoxProps || {
-      marginLeft: "100%",
-      transform: "translateX(-50%)",
-      background: "#f9f5ff",
-    };
-  });
-  
   const handleGoRightClick = () => {
     setSlideBoxProps({
       marginLeft: window.innerWidth > 769 ? "0%" : "50%",
@@ -228,7 +123,7 @@ const Form = () => {
     });
     setTopLayerProps({ marginLeft: "100%" });
   };
-  
+
   const handleGoLeftClick = () => {
     if (window.innerWidth > 769) {
       setSlideBoxProps({
@@ -243,64 +138,97 @@ const Form = () => {
     }
     setTopLayerProps({ marginLeft: "0%" });
   };
-  
+
   useEffect(() => {
     const handlePageReload = () => {
-      sessionStorage.setItem('pageReloaded', 'true');
+      sessionStorage.setItem("pageReloaded", "true");
     };
-  
-    window.addEventListener('beforeunload', handlePageReload);
-  
+
+    window.addEventListener("beforeunload", handlePageReload);
+
     const goRightElement = document.getElementById("goRight");
     const goLeftElement = document.getElementById("goLeft");
-  
+
     if (goRightElement) {
       goRightElement.addEventListener("click", handleGoRightClick);
     }
-  
+
     if (goLeftElement) {
       goLeftElement.addEventListener("click", handleGoLeftClick);
     }
-  
+
     return () => {
-      window.removeEventListener('beforeunload', handlePageReload);
-  
+      window.removeEventListener("beforeunload", handlePageReload);
+
       if (goRightElement) {
         goRightElement.removeEventListener("click", handleGoRightClick);
       }
-  
+
       if (goLeftElement) {
         goLeftElement.removeEventListener("click", handleGoLeftClick);
       }
     };
-  }, [handleGoLeftClick,handleGoRightClick]);
-  
+  }, [handleGoLeftClick, handleGoRightClick]);
+
+  //Handle the navigation in case of page reload in signup  and browser
+  //back arrow
+  // useEffect(() => {
+  //   const pageReloaded = sessionStorage.getItem("pageReloaded");
+
+  //   const handlePopstate = () => {
+  //     navigate("/");
+  //   };
+
+  //   window.addEventListener("popstate", handlePopstate);
+
+  //   if (pageReloaded) {
+  //     localStorage.removeItem("topLayerProps");
+  //     localStorage.removeItem("slideBoxProps");
+  //     navigate("/login");
+  //   } else {
+  //     sessionStorage.setItem("pageReloaded", "false");
+
+  //     if (pathname === "/signup") {
+  //       navigate("/");
+  //     }
+  //   }
+
+  //   return () => window.removeEventListener("popstate", handlePopstate);
+  // }, []);
+
   useEffect(() => {
-    const pageReloaded = sessionStorage.getItem('pageReloaded');
-    if (pageReloaded) {
-      localStorage.removeItem('topLayerProps');
-      localStorage.removeItem('slideBoxProps');
-      navigate('/login');
-    } else {
-      sessionStorage.setItem('pageReloaded', 'false');
-      if (pathname === '/signup') {
-        navigate('/login');
-      }
+    const handlePopstate = () => {
+      navigate("/");
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    sessionStorage.setItem("pageReloaded", "true");
+
+    if (sessionStorage.getItem("pageReloaded")) {
+      localStorage.removeItem("topLayerProps");
+      localStorage.removeItem("slideBoxProps");
+      navigate("/login");
+    } else if (pathname === "/signup") {
+      navigate("/login");
     }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+      sessionStorage.removeItem("pageReloaded"); // cleanup session storage
+    };
   }, []);
- 
 
 
 
-  // const isLogin = pathname === "/login";
+  
 
   // Handle login or signup button click across page transitions
   const handleButtonClick = () => {
     setButtonClicked(true);
   };
-  console.log(signUp)
+
   return (
-    
     <div className={cn("wrapper")}>
       <div id="back">
         <div className="backRight"></div>
@@ -386,15 +314,7 @@ const Form = () => {
                       <button id="logIn" className="login" type="submit" name="login" onClick={handleButtonClick}>
                         Log In
                       </button>
-                      <button
-                        id="goRight"
-                        className={` ${pathname === "/login" && "login off"}`}
-                        name="signup"
-                        onClick={() => {
-                          // setErrorMessage({});
-                          handleSignUp();
-                        }}
-                      >
+                      <button id="goRight" className={` ${pathname === "/login" && "login off"}`} name="signup" onClick={handleSignUp}>
                         Sign Up
                       </button>
                     </>
