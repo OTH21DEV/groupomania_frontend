@@ -14,12 +14,8 @@
 }
 .Employee {
   display: flex;
-  /* margin-top:20px;
-margin-bottom:20px; */
-  /* height: 100%; */
-  /* margin-right:20px; */
   margin-bottom:20px;
-  width:45%
+  /* width:45% */
 }
 
 .Employee-info {

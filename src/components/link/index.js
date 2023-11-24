@@ -2,11 +2,11 @@ import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-const Link = ({ name, icon, style,url }) => {
+const Link = ({ name, icon, style,url,id }) => {
   const cn = bem("Link");
 
   return (
-    <a className={cn()} href={url}>
+    <a className={cn()} href={url} id={id}>
       <div className={cn("name")} style={{ background: `${style}` }}>
         <p>{name}</p>
       </div>

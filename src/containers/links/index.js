@@ -22,7 +22,7 @@ const Links = () => {
   return (
     <div className={cn()}>
       <Heading title={"Quick links"} />
-      <Link name={"Propose post"} style={"#E672FC"} icon={news} url={"/new-post"} />
+      <Link name={"Propose post"} style={"#E672FC"} icon={news} url={"/new-post"} id={cn("post")}/>
       <Link name={"Find employee"} icon={employee} style={"#FC72A5 "} />
       <Link name={"Submit proposition "} style={"#7AC583"} icon={idea} />
       <Link name={"Contact IT department "} style={"#A88C94"} icon={laptop} />

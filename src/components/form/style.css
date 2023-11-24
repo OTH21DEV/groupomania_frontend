@@ -1,9 +1,4 @@
-/* #root {
-  display: flex;
-  justify-content: center;
-  min-height:100vh;
-  align-items: center;
-} */
+
 .Form-wrapper {
   display: flex;
   justify-content: center;
@@ -109,33 +104,7 @@
   cursor: pointer;
 }
 
-/*Style file input zone*/
-/* input[type="file"] {
-  max-width: 100%;
-  color: #444;
-  padding: 5px 0;
-  background: #fff;
-  width: 0px;
-} */
-/* input[type="file"]::file-selector-button {
-  margin-right: 20px;
-  border: none;
-  background: #234761;
 
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-  width: 130px;
-  height: 30px;
-  text-align: center;
-  display: none;
-}
-
-input[type="file"]::file-selector-button:hover {
-  background: #2b3894;
-  display: none;
-} */
 #file-label {
   display: flex;
   justify-content: flex-end;
