@@ -1,10 +1,9 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { cn as bem } from "@bem-react/classname";
-import "./style.css";
 import formatDate from "../../utils/format-date";
+import "./style.css";
 
-const Comments =  ({comments, textarea, setParentId, depth = 0 }) => {
-
+const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
   const cn = bem("Comments");
   const [clickedId, setClickedId] = useState(null);
 

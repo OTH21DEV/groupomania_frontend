@@ -3,7 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 const Employee = ({ photo, title, role, icon, phone }) => {
-    const cn = bem("Employee");
+  const cn = bem("Employee");
   return (
     <div className={cn()}>
       <img src={photo} alt=""></img>

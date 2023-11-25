@@ -1,11 +1,9 @@
-import React, { memo, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { cn as bem } from "@bem-react/classname";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-
 import "./style.css";
 
-// export default Comment;
 const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id }) => {
   const cn = bem("Comment");
 
@@ -14,7 +12,6 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
   const [showEmojis, setShowEmojis] = useState(false);
   //need for set temp text to avoid the same input in the field
   const [tempText, setTempText] = useState(""); // new state variable
-  console.log("test");
   const [apiCallComplete, setApiCallComplete] = useState(false);
 
   function handleClick(e) {
@@ -29,16 +26,6 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
     setTempText(""); // clear the temporary text after clicking the send button
   }
 
-  // useEffect(() => {
-  //   // if (isClicked && typeof postComment === "function") {
-  //   if (isClicked) {
-  //     postComment();
-  //     //test
-  //    onSubmit();
-  //     // getPostData()
-  //   }
-  // }, [isClicked]);
-
   useEffect(() => {
     if (isClicked && !apiCallComplete) {
       postComment()
@@ -51,16 +38,6 @@ const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id
         });
     }
   }, [isClicked, apiCallComplete]);
-
-  // async function test() {
-  //   try {
-  //     //test
-  //     await getPostData();
-  //   } catch (error) {
-  //     // Handle error case
-  //     console.log(error.message);
-  //   }
-  // }
 
   if (isClicked) {
     return null; // Returns null to hide the component after clicking the send button

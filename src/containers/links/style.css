@@ -1,37 +1,15 @@
 .Links {
   display: flex;
-  /* width: 100%; */
   flex-wrap: wrap;
   height: 220px;
-  padding:10px 0px 20px 15px;
-  background:white;
+  padding: 10px 0px 20px 15px;
+  background: white;
   border-radius: 5px;
   justify-content: space-between;
-  margin:20px 0px 30px 0px
+  margin: 20px 0px 30px 0px;
 }
 @media all and (min-width: 375px) and (max-width: 1100px) {
-  .Links{
-   
-    height:auto;
-  }
-}
-/* @media all and (min-width: 720px) and (max-width: 1100px) {
   .Links {
-    width:45%
-  }
-} */
-
-.Links-post{
-  animation:blink 2s infinite;
-}
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  20% {
-    opacity: .5;
-  }
-  100% {
-    opacity: 1;
+    height: auto;
   }
 }

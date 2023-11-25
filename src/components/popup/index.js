@@ -12,7 +12,6 @@ const Popup = ({ text, link, btnName, isClicked, toDelete }) => {
     navigate(link);
   }
 
-
   return (
     <div className={cn("overlay")}>
       <div className={cn("msg")}>

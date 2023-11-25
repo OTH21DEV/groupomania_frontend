@@ -25,14 +25,13 @@
   flex-direction: column;
   width: 100%;
   margin: 30px 0 30px 0;
-  position:relative
+  position: relative;
 }
 
 .Comment-btn {
   display: flex;
   justify-content: end;
-  align-items:center;
-
+  align-items: center;
 }
 
 .Comment-cancel-btn {
@@ -58,44 +57,32 @@
   margin-top: 30px;
 }
 
-.Comment-emoji-btn{
-    background: transparent;
+.Comment-emoji-btn {
+  background: transparent;
   outline: none;
   border: none;
-  display:flex
+  display: flex;
 }
 
-/* .Comment-emoji-btn svg{
-  width: 33px;
-  height: 33px;
-  margin-top: 30px;
-  padding-right: 5px;
-  cursor:pointer
-
-} */
-
-.Comment-emoji-container div{
-  position:absolute;
-  right:0;
- 
-
+.Comment-emoji-container div {
+  position: absolute;
+  right: 0;
 }
 
 .Comment-emoji-container {
- margin-top:10px
-
+  margin-top: 10px;
 }
 
-.Comment-emoji-btn-icon{
+.Comment-emoji-btn-icon {
   stroke: #bbbcc2;
   transition: stroke 0.3s ease;
   width: 33px;
   height: 33px;
   margin-top: 30px;
   padding-right: 5px;
-  cursor:pointer
+  cursor: pointer;
 }
 
 .Comment-emoji-btn-icon:hover {
-  stroke: #e54541; /* Replace with your desired hover color */
+  stroke: #e54541; 
 }

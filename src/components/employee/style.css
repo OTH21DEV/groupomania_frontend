@@ -1,6 +1,5 @@
 .Employee img {
   width: 120px;
-  /* height: 150px; */
   object-fit: cover;
 }
 
@@ -14,8 +13,7 @@
 }
 .Employee {
   display: flex;
-  margin-bottom:20px;
-  /* width:45% */
+  margin-bottom: 20px;
 }
 
 .Employee-info {
@@ -29,7 +27,6 @@
 
 .Employee-contact {
   display: flex;
-  /* align-items: center; */
 }
 
 .Employee-contact p {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import heart_empty from "../../assets/heart_empty.png";
 import heart_full from "../../assets/heart_full.png";
 import chat_bubble from "../../assets/chat_bubble.png";
@@ -8,9 +8,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 
-const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuthor, id, clickBtn, setIsVoted }) => {
- 
-  console.log("test");
+const PostCard = ({ getPostData, post, index, url, like, setLike, isVoted, isAuthor, id, clickBtn, setIsVoted }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
   let navigate = useNavigate();
@@ -22,41 +20,31 @@ const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuth
   async function handleImageClick() {
     try {
       if (isVoted === false) {
-        console.log("API called");
-
         await setLike(1);
         await like();
-        //test
         await setIsVoted(true);
-        //test
-        await getPostData()
+        await getPostData();
       } else if (isVoted === true) {
         await setLike(-1);
         await like();
-        //test
-       await  setIsVoted(false);
-          //test
-          await getPostData()
+        await setIsVoted(false);
+        await getPostData();
       }
     } catch (error) {
-      // Handle error case
       console.log(error.message);
     }
   }
 
-
-
   return (
     <div className={cn("wrapper")}>
       <a className={cn("link")} href={url} id={post?.id_post} key={index} onClick={handleClick}>
-      {/* <a className={cn("link")} href={url} id={post?.id_post} key={index} > */}
         <p className={cn("link-pseudo")}>{post?.pseudo}</p>
         <h2 className={cn("link-title")}>{post?.title}</h2>
         <p className={cn("link-body")}>{post?.body}</p>
 
         {post &&
           (post?.image_url ? (
-            <div className={cn(id?"img-container-post":"img-container")}>
+            <div className={cn(id ? "img-container-post" : "img-container")}>
               <img src={post?.image_url} alt="" className={cn("img")} />
             </div>
           ) : null)}
@@ -65,9 +53,7 @@ const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuth
       <div className={cn("bottom")}>
         <p className={cn("bottom-date")}>{formatDate(post?.date)}</p>
         <div className={cn("bottom-notation-wrapper")}>
-          {/* <div className={cn("bottom-notation")} onClick={() => { setLike(like+1); click(); }}> */}
           <div className={cn("bottom-notation")}>
-            {/* <img src={heart_empty} alt="" onClick={(e) =>{  console.log(e.target)}} /> */}
             <img src={isVoted === true ? heart_full : heart_empty} alt="" onClick={handleImageClick} />
             <p className={cn("bottom-notation-likes")}>{post?.likes}</p>
           </div>
@@ -91,5 +77,5 @@ const PostCard = ({ getPostData,post, index, url, like, setLike, isVoted, isAuth
     </div>
   );
 };
-// export default PostCard;
+
 export default React.memo(PostCard);

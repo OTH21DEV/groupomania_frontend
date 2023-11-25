@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { getAllPostsData } from "../../services/post-services";
-import PostCard from "../post-card";
+import PostCard from "../../components/post-card";
 import "./style.css";
 
 const AllPosts = () => {
-  console.log("allpost call");
   const cn = bem("Post");
   const [posts, setPosts] = useState([]);
 
   let userData = JSON.parse(localStorage.getItem("userData"));
   let headers = new Headers();
+
   headers.append("Authorization", `Bearer ${userData.token}`);
 
   //API call
-
   const getPostsApi = useCallback(async () => {
     const result = await getAllPostsData(headers);
     try {

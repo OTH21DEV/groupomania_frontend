@@ -5,7 +5,6 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  /* justify-content: end; */
   padding: 0 20px;
   align-content: flex-start;
   justify-content: space-between;

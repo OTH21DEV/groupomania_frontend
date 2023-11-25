@@ -11,9 +11,9 @@ import PostCard from "../../components/post-card";
 import Comment from "../../components/comment";
 import Popup from "../../components/popup";
 import Comments from "../../components/comments";
-let counter = 0;
+
 const Post = () => {
-  console.log("counting re-renders", (counter += 1));
+
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
   const [isVoted, setIsVoted] = useState("");
@@ -27,11 +27,7 @@ const Post = () => {
   let navigate = useNavigate();
   let id = useParams();
   let userData = JSON.parse(localStorage.getItem("userData"));
-  // let headers = new Headers();
-  // headers.append("Authorization", `Bearer ${userData.token}`);
 
-  // let urlencoded = new URLSearchParams();
-  // urlencoded.append("like", like);
 
   let headers = useMemo(() => {
     let head = new Headers();
@@ -46,7 +42,6 @@ const Post = () => {
   }, [like]);
 
   // API call to fetch post data
-
   const getPostData = useCallback(async () => {
     const result = await getOnePostData(id.id, headers);
     try {
@@ -61,13 +56,12 @@ const Post = () => {
       console.log(error.message);
     }
   }, []);
-  //, [id.id, headers,isAuthor,isVoted,post,comments]
+
   useEffect(() => {
     getPostData();
   }, [getPostData]);
 
   //API call save the like +-
-
   const postLikeApi = useCallback(async () => {
     try {
       const result = await postLikeData(id.id, headers, urlencoded);
@@ -139,7 +133,6 @@ const Post = () => {
         {/* Includes reply comments -  parentId is the id of replied comment */}
         <Comments
           comments={comments}
-          // getPostData={getPostData}
           textarea={<Comment onSubmit={handleCommentSubmit} avatar={userData?.avatarUrl} postComment={postCommentApi} setText={setText} text={text} setParentId={setParentId} id={parentId} />}
           setParentId={setParentId}
         />
@@ -150,23 +143,6 @@ const Post = () => {
     </div>
   );
 };
-// export default Post;
+
 
 export default React.memo(Post);
-// useEffect(() => {
-
-//   async function getPostData() {
-//     const result = await getOnePostData(id.id, headers);
-//     try {
-//       setPost(result.post);
-//       setIsVoted(result.isVoted);
-//       setIsAuthor(result.isAuthor);
-//       setComments(result.comments);
-//       localStorage.setItem("postData", JSON.stringify(post));
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   }
-
-//   getPostData();
-// }, [post]);

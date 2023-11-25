@@ -2,7 +2,7 @@ import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-const Link = ({ name, icon, style,url,id }) => {
+const Link = ({ name, icon, style, url, id }) => {
   const cn = bem("Link");
 
   return (

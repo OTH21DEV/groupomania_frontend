@@ -7,26 +7,21 @@
   height: 50px;
   cursor: pointer;
   text-decoration: none;
- 
-
 }
- #Links-post{
-    animation:blink 2s infinite;
+#Links-post {
+  animation: blink 2s infinite;
 }
 .Link:hover {
   opacity: 0.8;
   transform: scale(1.02);
 }
 
-
 @media all and (min-width: 375px) and (max-width: 1100px) {
-    .Link{
-      width:100%;
-     
-    }
+  .Link {
+    width: 100%;
   }
+}
 .Link-icon {
-  /* background:#FC72A5 ; */
   opacity: 0.5;
   height: 44px;
   display: flex;
@@ -37,38 +32,32 @@
   width: 20px;
   height: 20px;
   padding: 0 10px;
-  
 }
 
 .Link-name {
   width: 150px;
-  width:100%;
-  /* background:#FC72A5 ; */
+  width: 100%;
   border-radius: 5px 0px 0px 5px;
   margin: 0;
   height: 44px;
   display: flex;
   align-items: center;
-  
 }
-
 
 .Link-name p {
   padding: 0 10px;
   color: white;
   font-size: 0.8em;
-
 }
 
-
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    20% {
-      opacity: .5;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes blink {
+  0% {
+    opacity: 1;
   }
+  20% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

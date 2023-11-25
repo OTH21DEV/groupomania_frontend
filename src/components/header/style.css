@@ -1,38 +1,38 @@
-.Header{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    width:100%;
-    flex-wrap:wrap
-    /* margin:10px 20px; */
-    /* height:70px; */
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.Header h1{
-    font-weight: 300;
-    color:#2c3034;
-    font-size: 2.6em;
-    margin: 0.2em 0 0.1em;
+.Header h1 {
+  font-weight: 300;
+  color: #2c3034;
+  font-size: 2.6em;
+  margin: 0.2em 0 0.1em;
 }
-.Header-user{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
+.Header-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.Header-user p{
-    color:#212121;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    padding-left:25px;
+.Header-user p {
+  color: #212121;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding-left: 25px;
 }
-.Header-icon_avatar{
- width:40px;
- height:40px;
- object-fit: contain;
- margin-left:20px
+.Header-icon_avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-left: 20px;
 }
 
-.Header-icon_loupe, .Header-icon_notification, .Header-icon_line{
-    width: 20px;
-    padding:20px ;
-  }
+.Header-icon_loupe,
+.Header-icon_notification,
+.Header-icon_line {
+  width: 20px;
+  padding: 20px;
+}
