@@ -1,232 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
 import { cn as bem } from "@bem-react/classname";
-import "./style.css";
-
-import { authData } from "../../services/auth-services";
-import { useSpring, animated, config } from "react-spring";
+import { animated } from "react-spring";
 import image from "../../assets/shop_test.jpg";
 import Popup from "../popup";
+import "./style.css";
 
-const Form = () => {
+const Form = ({ slideBoxProps, topLayerProps, signUp, onSubmit, user, setUser, errorMessage, buttonClicked, pathname, handleButtonClick, handleSignUp, showSuccessMessage }) => {
   const cn = bem("Form");
-
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    pseudo: "",
-  });
-  // const pathname = window.location.pathname;
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [pathname, setPathname] = useState("");
-
-  const [signUp, setSignUp] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({});
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
-  const [topLayerProps, setTopLayerProps] = useSpring(() => {
-    const storedTopLayerProps = JSON.parse(localStorage.getItem("topLayerProps"));
-    return storedTopLayerProps || { marginLeft: "0%" };
-  });
-
-  const [slideBoxProps, setSlideBoxProps] = useSpring(() => {
-    const storedSlideBoxProps = JSON.parse(localStorage.getItem("slideBoxProps"));
-    return (
-      storedSlideBoxProps || {
-        marginLeft: "100%",
-        transform: "translateX(-50%)",
-        background: "#f9f5ff",
-      }
-    );
-  });
-
-  useEffect(() => {
-    setPathname(location.pathname);
-  }, [location.pathname]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setErrorMessage({});
-
-    let formdata = new FormData();
-
-    if (location.pathname === "/login") {
-      formdata.append("email", `${user.email}`);
-      formdata.append("password", `${user.password}`);
-    } else {
-      const fileInput = document.querySelector('input[type="file"]');
-      const file = fileInput?.files[0];
-
-      formdata.append("email", `${user.email}`);
-      formdata.append("password", `${user.password}`);
-      formdata.append("pseudo", `${user.pseudo}`);
-      //append file if loaded by user
-      file && formdata.append("image", file, file.name);
-    }
-    const apiEndpoint = pathname === "/login" ? "/login" : "/signup";
-
-    //API call - post new user
-
-    async function submitForm() {
-      try {
-        const result = await authData(apiEndpoint, formdata);
-
-        setErrorMessage(result.message);
-
-        if (user.email !== "" && user.password !== "" && user.pseudo !== "" && result.message === "User created") {
-          setShowSuccessMessage(true);
-          console.log(result);
-        }
-
-        if (apiEndpoint === "/login" && result.userId && result.token) {
-          navigate("/posts");
-          localStorage.setItem("userData", JSON.stringify(result));
-        }
-      } catch (error) {
-        // Handle error case
-        console.log(error.message);
-      }
-    }
-
-    submitForm();
-
-    // setSubmitted(true);
-  }
-
-  function handleSignUp() {
-    setSignUp(!signUp);
-
-    setButtonClicked(false);
-    if (!signUp) {
-      navigate("/signup");
-    } else {
-      navigate("/login");
-    }
-  }
-
-  useEffect(() => {
-    setUser({ email: "", password: "", pseudo: "" });
-
-    if (location.pathname === "/signup") {
-      setSignUp(true);
-    } else {
-      setSignUp(false);
-    }
-  }, [location.pathname]);
-
-  const handleGoRightClick = () => {
-    setSlideBoxProps({
-      marginLeft: window.innerWidth > 769 ? "0%" : "50%",
-      background: "#f9f5ff",
-    });
-    setTopLayerProps({ marginLeft: "100%" });
-  };
-
-  const handleGoLeftClick = () => {
-    if (window.innerWidth > 769) {
-      setSlideBoxProps({
-        marginLeft: "100%",
-        background: "#222831",
-      });
-    } else {
-      setSlideBoxProps({
-        marginLeft: "50%",
-        background: "#222831",
-      });
-    }
-    setTopLayerProps({ marginLeft: "0%" });
-  };
-
-  useEffect(() => {
-    const handlePageReload = () => {
-      sessionStorage.setItem("pageReloaded", "true");
-    };
-
-    window.addEventListener("beforeunload", handlePageReload);
-
-    const goRightElement = document.getElementById("goRight");
-    const goLeftElement = document.getElementById("goLeft");
-
-    if (goRightElement) {
-      goRightElement.addEventListener("click", handleGoRightClick);
-    }
-
-    if (goLeftElement) {
-      goLeftElement.addEventListener("click", handleGoLeftClick);
-    }
-
-    return () => {
-      window.removeEventListener("beforeunload", handlePageReload);
-
-      if (goRightElement) {
-        goRightElement.removeEventListener("click", handleGoRightClick);
-      }
-
-      if (goLeftElement) {
-        goLeftElement.removeEventListener("click", handleGoLeftClick);
-      }
-    };
-  }, [handleGoLeftClick, handleGoRightClick]);
-
-  //Handle the navigation in case of page reload in signup  and browser
-  //back arrow
-  // useEffect(() => {
-  //   const pageReloaded = sessionStorage.getItem("pageReloaded");
-
-  //   const handlePopstate = () => {
-  //     navigate("/");
-  //   };
-
-  //   window.addEventListener("popstate", handlePopstate);
-
-  //   if (pageReloaded) {
-  //     localStorage.removeItem("topLayerProps");
-  //     localStorage.removeItem("slideBoxProps");
-  //     navigate("/login");
-  //   } else {
-  //     sessionStorage.setItem("pageReloaded", "false");
-
-  //     if (pathname === "/signup") {
-  //       navigate("/");
-  //     }
-  //   }
-
-  //   return () => window.removeEventListener("popstate", handlePopstate);
-  // }, []);
-
-  useEffect(() => {
-    const handlePopstate = () => {
-      navigate("/");
-    };
-
-    window.addEventListener("popstate", handlePopstate);
-
-    sessionStorage.setItem("pageReloaded", "true");
-
-    if (sessionStorage.getItem("pageReloaded")) {
-      localStorage.removeItem("topLayerProps");
-      localStorage.removeItem("slideBoxProps");
-      navigate("/login");
-    } else if (pathname === "/signup") {
-      navigate("/login");
-    }
-
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-      sessionStorage.removeItem("pageReloaded"); // cleanup session storage
-    };
-  }, []);
-
-
-
-  
-
-  // Handle login or signup button click across page transitions
-  const handleButtonClick = () => {
-    setButtonClicked(true);
-  };
 
   return (
     <div className={cn("wrapper")}>
@@ -236,7 +16,7 @@ const Form = () => {
           <img src={image} alt=""></img>
         </div>
       </div>
-      {/* {!showSuccessMessage ? ( */}
+
       <animated.div id="slideBox" style={slideBoxProps}>
         <animated.div className="topLayer" style={topLayerProps}>
           <div className={signUp ? "left" : "right"}>
@@ -246,7 +26,7 @@ const Form = () => {
                 id="form-login"
                 method="post"
                 onSubmit={(e) => {
-                  handleSubmit(e);
+                  onSubmit(e);
                 }}
               >
                 <div className="form-element form-stack">
@@ -254,6 +34,7 @@ const Form = () => {
                     Email
                   </label>
                   <input id={!signUp ? "username-login" : "username-signup"} type="text" name="username" value={user?.email || ""} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+
                   {errorMessage.email && buttonClicked ? <p className={!signUp ? cn("error-msg") : cn("error-msg-signup")}>{errorMessage.email}</p> : ""}
                 </div>
                 <div className="form-element form-stack">

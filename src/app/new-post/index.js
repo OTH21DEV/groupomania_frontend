@@ -6,6 +6,7 @@ import PostForm from "../../components/post-form";
 import { useLocation } from "react-router-dom";
 import { createPost } from "../../services/post-services";
 import Popup from "../../components/popup";
+import SideLayout from "../../components/side-layout";
 
 const NewPost = () => {
   const [newPost, setNewPost] = useState({
@@ -16,6 +17,7 @@ const NewPost = () => {
   const [errorMessage, setErrorMessage] = useState({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const location = useLocation();
+  const apiEndpoint = location.pathname;
   let userData = JSON.parse(localStorage.getItem("userData"));
 
   function handleSubmit(e) {
@@ -38,9 +40,6 @@ const NewPost = () => {
       }
     }
 
-    const apiEndpoint = location.pathname;
-
-    console.log(apiEndpoint);
     //API call
     async function submitForm() {
       try {
@@ -63,17 +62,15 @@ const NewPost = () => {
     submitForm();
   }
 
-  ///////////////////////
-
   return (
-    <div style={{ display: "flex" }}>
+    <SideLayout display={"flex"}>
       <Nav />
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
-        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} ></PostForm>
+        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage}></PostForm>
         {showSuccessMessage && <Popup text={"Post created"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
-    </div>
+    </SideLayout>
   );
 };
 

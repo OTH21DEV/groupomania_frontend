@@ -1,42 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { authData } from "../../services/auth-services";
+import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import Popup from "../popup";
 import "./style.css";
 
-const FormForgotPassword = () => {
+const FormForgotPassword = ({ showSuccessMessage, onSubmit, user, setUser, errorMessage }) => {
   const cn = bem("Form-forgot");
-  const [user, setUser] = useState({
-    email: "",
-  });
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
-  const [errorMessage, setErrorMessage] = useState({});
-
-  const location = useLocation();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    let formdata = new FormData();
-    formdata.append("email", `${user.email}`);
-    const apiEndpoint = location.pathname;
-
-    async function submitForm() {
-      try {
-        const result = await authData(apiEndpoint, formdata);
-        setErrorMessage(result.message);
-
-        if (result.message.error === undefined && user.email !== "") {
-          setShowSuccessMessage(true);
-        }
-      } catch (error) {
-      
-        console.log(error);
-      }
-    }
-    submitForm();
-  }
 
   return (
     <div className={cn("wrapper")}>
@@ -45,7 +13,7 @@ const FormForgotPassword = () => {
           className={cn()}
           method="post"
           onSubmit={(e) => {
-            handleSubmit(e);
+            onSubmit(e);
           }}
         >
           <div className={cn("content")}>
@@ -59,7 +27,7 @@ const FormForgotPassword = () => {
           </div>
         </form>
       ) : (
-        <Popup text={"Password reset email sent successfully to your email"} link={"/"} btnName={'CLOSE'} isClicked={false}/>
+        <Popup text={"Password reset email sent successfully to your email"} link={"/"} btnName={"CLOSE"} isClicked={false} />
       )}
     </div>
   );

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { updateOnePostData } from "../../services/post-services";
 import PageLayoutLight from "../../components/page-layout-light";
 import Header from "../../components/header";
 import Nav from "../../components/nav";
 import PostForm from "../../components/post-form";
-import { useLocation } from "react-router-dom";
-import { createPost } from "../../services/post-services";
-import { updateOnePostData } from "../../services/post-services";
 import Popup from "../../components/popup";
-import { useNavigate, useParams } from "react-router-dom";
+import SideLayout from "../../components/side-layout";
 
 const ModifyPost = () => {
   let id = useParams();
@@ -56,14 +55,11 @@ const ModifyPost = () => {
     //API call
     async function submitForm() {
       try {
-        // const result = await createPost(apiEndpoint, formdata, headers);
         const result = await updateOnePostData(id.id, formdata, headers);
         setErrorMessage(result.message);
 
-        console.log(result);
         if (newPost.title !== "" && newPost.body !== "" && (result.message === "Post modified" || result.message === "Post modified with file")) {
           setShowSuccessMessage(true);
-          console.log(result);
         }
       } catch (error) {
         // Handle error case
@@ -75,17 +71,15 @@ const ModifyPost = () => {
     submitForm();
   }
 
-  ///////////////////////
-
   return (
-    <div style={{ display: "flex" }}>
+    <SideLayout display={"flex"}>
       <Nav />
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
         <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} postData={postData.message}></PostForm>
         {showSuccessMessage && <Popup text={"Post modified"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
-    </div>
+    </SideLayout>
   );
 };
 
