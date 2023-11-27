@@ -2,7 +2,7 @@ import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-const PostForm = ({ onSubmit, newPost, setNewPost, errorMessage, postData }) => {
+const PostForm = ({ onSubmit, newPost, setNewPost, errorMessage}) => {
   const cn = bem("Post-form");
 
   return (

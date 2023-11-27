@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { updateOnePostData } from "../../services/post-services";
 import PageLayoutLight from "../../components/page-layout-light";
@@ -16,14 +16,15 @@ const ModifyPost = () => {
   const location = useLocation();
   let userData = JSON.parse(localStorage.getItem("userData"));
   let postData = JSON.parse(localStorage.getItem("postData"));
+
   let apiEndpoint = location.pathname === `/modify-post/${id.id}`;
 
   const [newPost, setNewPost] = useState(
     apiEndpoint
       ? {
           userId: "",
-          title: postData.message.title,
-          body: postData.message.body,
+          title: postData?.title,
+          body: postData?.body,
         }
       : {
           userId: "",
@@ -76,7 +77,7 @@ const ModifyPost = () => {
       <Nav />
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
-        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} postData={postData.message}></PostForm>
+        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} ></PostForm>
         {showSuccessMessage && <Popup text={"Post modified"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
     </SideLayout>

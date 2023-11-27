@@ -66,7 +66,7 @@ const PostCard = ({ getPostData, post, index, url, like, setLike, isVoted, isAut
 
       {isAuthor === true && (
         <>
-          <button className={cn("modify-btn")} onClick={() => navigate(`/modify-post/${id}`)}>
+          <button className={cn("modify-btn")} onClick={() => { navigate(`/modify-post/${id}`); localStorage.setItem("postData", JSON.stringify(post)) }}>
             Modify
           </button>
           <button className={cn("delete-btn")} onClick={clickBtn}>
