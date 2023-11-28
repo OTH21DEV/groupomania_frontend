@@ -1,5 +1,6 @@
 export async function authData(apiEndpoint, formData) {
-  const url = `http://localhost:3000/api/auth${apiEndpoint}`;
+  // const url = `http://localhost:3000/api/auth${apiEndpoint}`;
+  const url = `https://corporate-social-network-902adf387c2e.herokuapp.com/api/auth${apiEndpoint}`;
 
   const response = await fetch(url, {
     method: "POST",
