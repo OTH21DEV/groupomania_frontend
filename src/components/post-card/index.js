@@ -5,16 +5,29 @@ import heart_full from "../../assets/heart_full.png";
 import chat_bubble from "../../assets/chat_bubble.png";
 import formatDate from "../../utils/format-date";
 import { cn as bem } from "@bem-react/classname";
-
 import "./style.css";
 
-const PostCard = ({ getPostData, post, index, url, like, setLike, isVoted, isAuthor, id, clickBtn, setIsVoted }) => {
+const PostCard = ({ pathname, getPostData, post, index, url, like, setLike, isVoted, isAuthor, id, clickBtn, setIsVoted }) => {
   const cn = bem("Post");
   const [isClicked, setIsClicked] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 250;
+  const contentOverMaxLength = post.body?.length > maxLength;
+  const shortContent = contentOverMaxLength ? `${post.body.slice(0, maxLength)}...` : post.body;
+
   let navigate = useNavigate();
+  let state = sessionStorage.getItem(`postExpanded-${post.id_post}`);
 
   function handleClick() {
     setIsClicked(true);
+    setIsExpanded(false);
+  }
+
+  function handleExpandClick(event) {
+    event.preventDefault(); // Prevent default anchor behavior
+    event.stopPropagation(); // Stop event from propagating to parent elements
+    setIsExpanded((currentState) => !currentState); // Toggle the expansion of the content
+    sessionStorage.setItem(`postExpanded-${post.id_post}`, "true");
   }
 
   async function handleImageClick() {
@@ -37,10 +50,19 @@ const PostCard = ({ getPostData, post, index, url, like, setLike, isVoted, isAut
 
   return (
     <div className={cn("wrapper")}>
-      <a className={cn("link")} href={url} id={post?.id_post} key={index} onClick={handleClick}>
+      <a className={cn("link")} href={`/post/${post.id_post}`} id={post?.id_post} key={index} onClick={handleClick}>
         <p className={cn("link-pseudo")}>{post?.pseudo}</p>
         <h2 className={cn("link-title")}>{post?.title}</h2>
-        <p className={cn("link-body")}>{post?.body}</p>
+
+        <p className={cn("link-body")}>{isExpanded || (pathname && state) ? post.body : shortContent}</p>
+
+        {contentOverMaxLength && !(pathname && state) ? (
+          <p className={cn("content-expand")} onClick={(event) => handleExpandClick(event)}>
+            Read more
+          </p>
+        ) : (
+          ""
+        )}
 
         {post &&
           (post?.image_url ? (
@@ -66,7 +88,13 @@ const PostCard = ({ getPostData, post, index, url, like, setLike, isVoted, isAut
 
       {isAuthor === true && (
         <>
-          <button className={cn("modify-btn")} onClick={() => { navigate(`/modify-post/${id}`); localStorage.setItem("postData", JSON.stringify(post)) }}>
+          <button
+            className={cn("modify-btn")}
+            onClick={() => {
+              navigate(`/modify-post/${id}`);
+              localStorage.setItem("postData", JSON.stringify(post));
+            }}
+          >
             Modify
           </button>
           <button className={cn("delete-btn")} onClick={clickBtn}>

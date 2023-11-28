@@ -22,6 +22,7 @@ const Comments = ({ comments, textarea, setParentId, depth = 0 }) => {
     <>
       {comments &&
         comments.map((comment, index) => {
+          console.log(comment);
           // Access the id_comments property from each comment object
           const id = comment.id_comments;
 

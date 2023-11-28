@@ -18,7 +18,28 @@
 
 .Post-link-body {
   color: #212121;
+  white-space: pre-wrap;
+  text-align: justify;
+  cursor: pointer;
 }
+.Post-content-expand {
+  color: #212121;
+  white-space: pre-wrap;
+  text-align: justify;
+  font-weight: bolder;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+.Post-link-body-show {
+  color: #212121;
+  white-space: pre-wrap;
+  text-align: justify;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
 .Post-img-container {
   width: 100%;
 }

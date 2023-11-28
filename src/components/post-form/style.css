@@ -1,7 +1,8 @@
 .Post-form {
   width: 50%;
 }
-textarea {
+
+.Post-form-textarea textarea {
   margin: 30px 0 0 0;
   padding: 0;
   border: none;
@@ -9,6 +10,7 @@ textarea {
   outline: none;
   appearance: none;
   min-height: 200px;
+  white-space: pre-wrap;
 }
 
 .Post-form-textarea {

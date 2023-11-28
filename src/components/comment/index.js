@@ -6,7 +6,7 @@ import "./style.css";
 
 const Comment = ({ onSubmit, avatar, postComment, setText, text, setParentId, id }) => {
   const cn = bem("Comment");
-
+  console.log(avatar);
   //hide the component
   const [isClicked, setIsClicked] = useState(false);
   const [showEmojis, setShowEmojis] = useState(false);

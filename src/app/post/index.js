@@ -13,7 +13,6 @@ import Popup from "../../components/popup";
 import Comments from "../../components/comments";
 
 const Post = () => {
-
   const [post, setPost] = useState([]);
   const [like, setLike] = useState(null);
   const [isVoted, setIsVoted] = useState("");
@@ -28,7 +27,6 @@ const Post = () => {
   let id = useParams();
   let userData = JSON.parse(localStorage.getItem("userData"));
 
-
   let headers = useMemo(() => {
     let head = new Headers();
     head.append("Authorization", `Bearer ${userData.token}`);
@@ -40,6 +38,9 @@ const Post = () => {
     encoded.append("like", like);
     return encoded;
   }, [like]);
+
+  //tets
+  let pathname = `/post/${id.id}`;
 
   // API call to fetch post data
   const getPostData = useCallback(async () => {
@@ -128,6 +129,7 @@ const Post = () => {
           isAuthor={isAuthor}
           id={id.id}
           clickBtn={handleClick}
+          pathname={pathname}
         ></PostCard>
 
         {/* Includes reply comments -  parentId is the id of replied comment */}
@@ -143,6 +145,5 @@ const Post = () => {
     </div>
   );
 };
-
 
 export default React.memo(Post);

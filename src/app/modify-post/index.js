@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { updateOnePostData } from "../../services/post-services";
 import PageLayoutLight from "../../components/page-layout-light";
@@ -48,6 +48,7 @@ const ModifyPost = () => {
       formdata.append("body", `${newPost.body}`);
       formdata.append("userId", `${userData.userId}`);
       headers.append("Authorization", `Bearer ${userData.token}`);
+
       if (file) {
         formdata.append("image", file, file.name);
       }
@@ -77,7 +78,7 @@ const ModifyPost = () => {
       <Nav />
       <PageLayoutLight style={"center"}>
         <Header title={"Welcome!"} pseudo={userData?.pseudo} avatar={userData?.avatarUrl} />
-        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage} ></PostForm>
+        <PostForm onSubmit={handleSubmit} newPost={newPost} setNewPost={setNewPost} errorMessage={errorMessage}></PostForm>
         {showSuccessMessage && <Popup text={"Post modified"} link={"/posts"} btnName={"CLOSE"} isClicked={false}></Popup>}
       </PageLayoutLight>
     </SideLayout>
