@@ -97,7 +97,7 @@ const Login = () => {
     setSignUp(!signUp);
     setButtonClicked(false);
     //clean up the user info from login before access the signup
-    setUser({ email: "", password: "", pseudo: "" });
+    // setUser({ email: "", password: "", pseudo: "" });
 
     if (!signUp) {
       navigate("/signup");
