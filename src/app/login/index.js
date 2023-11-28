@@ -6,8 +6,8 @@ import Form from "../../components/form";
 
 const Login = () => {
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "steveTony@rogers.com",
+    password: "azerty",
     pseudo: "",
   });
 
