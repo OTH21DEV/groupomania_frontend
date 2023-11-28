@@ -33,7 +33,7 @@ const Form = ({ slideBoxProps, topLayerProps, signUp, onSubmit, user, setUser, e
                   <label htmlFor="username-login" className="form-label">
                     Email
                   </label>
-                  <input id={!signUp ? "username-login" : "username-signup"} type="text" name="username" value={user?.email || ""} onChange={(e) => setUser({ ...user, email: e.target.value })} />
+                  <input id={!signUp ? "username-login" : "username-signup"} type="text" name="username" value={!signUp ? (user?.email || "steveTony@rogers.com"):user?.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
 
                   {errorMessage.email && buttonClicked ? <p className={!signUp ? cn("error-msg") : cn("error-msg-signup")}>{errorMessage.email}</p> : ""}
                 </div>
@@ -41,7 +41,7 @@ const Form = ({ slideBoxProps, topLayerProps, signUp, onSubmit, user, setUser, e
                   <label htmlFor="password-login" className="form-label">
                     Password
                   </label>
-                  <input id="password-login" type="password" name="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                  <input id="password-login" type="password" name="password" value={!signUp ?(user?.password || "azerty"):user?.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
                   {errorMessage.password && buttonClicked && <p className={!signUp ? cn("error-msg") : cn("error-msg-signup")}>{errorMessage.password}</p>}
                 </div>
                 {/**Add error message if empty fields on login page */}
