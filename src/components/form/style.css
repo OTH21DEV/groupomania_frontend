@@ -178,8 +178,8 @@ body {
   left: 0;
   width: 50%;
   height: 100%;
-  background: #673ab7;
-  background: #d5f9e6;
+  /* background: #673ab7;
+  background: #d5f9e6; */
 }
 .backLeft h2,
 .backLeft h3,
