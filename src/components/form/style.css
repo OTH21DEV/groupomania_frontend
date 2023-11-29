@@ -376,6 +376,15 @@ button.off {
   box-shadow: none;
   margin: 0;
 }
+
+#goRight.off.login:active:focus,
+#goLeft.off.signup:active:focus {
+  background: none;
+}
+#goLeft.off.signup:focus {
+  background: none;
+}
+
 button.off.signup {
   color: #03a9f4;
 }
@@ -406,14 +415,18 @@ button:hover.off.signup {
   background: #212121;
 }
 
-#goRight.off.login:hover,
-#goRight.off.login:active {
-  background: #e3e3e3;
+@media (hover: hover) and (pointer: fine) {
+  #goRight.off.login:hover,
+  #goRight.off.login:active {
+    background: #e3e3e3;
+  }
+
+  #goLeft.off.signup:hover,
+  #goLeft.off.signup:active {
+    background: #212121;
+  }
 }
-#goLeft.off.signup:hover,
-#goLeft.off.signup:active {
-  background: #212121;
-}
+
 @media only screen and (max-width: 768px) {
   #slideBox {
     width: 80%;

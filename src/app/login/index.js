@@ -5,11 +5,7 @@ import { useSpring } from "react-spring";
 import Form from "../../components/form";
 
 const Login = () => {
-  const [user, setUser] = useState({
-    email: "steveTony@rogers.com",
-    password: "azerty",
-    pseudo: "",
-  });
+  const [user, setUser] = useState({});
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,6 +30,15 @@ const Login = () => {
       }
     );
   });
+
+  //Keep the users info when switch from signin (demo purpose)
+  useEffect(() => {
+    setUser({
+      email: "steveTony@rogers.com",
+      password: "azerty",
+      pseudo: "",
+    });
+  }, [location.pathname]);
 
   useEffect(() => {
     setPathname(location.pathname);
@@ -101,7 +106,10 @@ const Login = () => {
 
     if (!signUp) {
       navigate("/signup");
+      // setUser({ email: "", password: "", pseudo: "" });
     } else {
+      console.log(user);
+
       navigate("/login");
     }
   }

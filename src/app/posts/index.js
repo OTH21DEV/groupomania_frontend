@@ -12,6 +12,7 @@ const Posts = () => {
 
   const [matches, setMatches] = useState(window.matchMedia("(min-width: 376px) and (max-width: 450px)").matches);
 
+
   useEffect(() => {
     const mediaQueryList = window.matchMedia("(min-width: 376px) and (max-width: 450px)");
 

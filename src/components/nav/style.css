@@ -19,6 +19,7 @@
 .Nav-icons img {
   width: 20px;
   padding: 25px 0px;
+  cursor: pointer;
 }
 .Nav-icons {
   margin-top: 60px;
@@ -48,6 +49,9 @@
   transform: scale(0.9);
 }
 
+.Nav-icon-logout {
+  cursor: pointer;
+}
 .Nav-icon-posts a:before {
   font-style: normal;
   font-weight: normal;
